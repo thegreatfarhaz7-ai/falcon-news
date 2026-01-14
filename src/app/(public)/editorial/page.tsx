@@ -57,15 +57,9 @@ export default function EditorialPage() {
                         {leadArticle.summary}
                     </p>
                     <div className="mt-8 flex items-center justify-between">
-                        <div className="flex items-center gap-4">
-                            <Avatar className="h-12 w-12">
-                                <AvatarImage src="https://i.pravatar.cc/150?u=editorialboard" alt="The Editorial Board" />
-                                <AvatarFallback>EB</AvatarFallback>
-                            </Avatar>
-                            <div>
-                                <p className="font-bold">{leadArticle.author}</p>
-                                <p className="text-sm text-muted-foreground font-sans">Policy &amp; Governance</p>
-                            </div>
+                        <div>
+                            <p className="font-bold">{leadArticle.author}</p>
+                            <p className="text-sm text-muted-foreground font-sans">Policy &amp; Governance</p>
                         </div>
                         <Link href={`/article/${leadArticle.slug}`} className="flex items-center gap-2 font-bold text-primary hover:underline">
                             Read Editorial <ArrowRight className="h-4 w-4"/>
