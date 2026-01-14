@@ -3,6 +3,7 @@ import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { articles } from '@/lib/placeholder-data';
 import ArticlesTable from '@/components/dashboard/articles/ArticlesTable';
+import Link from 'next/link';
 
 export default function ArticlesPage() {
   return (
@@ -14,9 +15,11 @@ export default function ArticlesPage() {
             Here you can create, edit, and manage all news articles.
           </p>
         </div>
-        <Button>
-          <PlusCircle className="mr-2 h-4 w-4" />
-          New Article
+        <Button asChild>
+          <Link href="/dashboard/articles/new">
+            <PlusCircle className="mr-2 h-4 w-4" />
+            New Article
+          </Link>
         </Button>
       </div>
 

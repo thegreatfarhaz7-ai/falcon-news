@@ -1,22 +1,37 @@
-import Image from 'next/image';
-import Link from 'next/link';
 import { articles } from '@/lib/placeholder-data';
 import { PlaceHolderImages } from '@/lib/placeholder-images';
+import Image from 'next/image';
+import Link from 'next/link';
+import { notFound } from 'next/navigation';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { PlayCircle } from 'lucide-react';
+import { Badge } from '@/components/ui/badge';
 
-export default function VideoNewsPage() {
-  // Assuming last 4 articles are video news for placeholder
-  const videoArticles = articles.filter(a => a.category === 'Videos');
+export default function TagPage({ params }: { params: { tag: string } }) {
+  const tagName = params.tag.replace(/-/g, ' ');
+  const taggedArticles = articles.filter(article => 
+    article.tags.some(tag => tag.toLowerCase().replace(/ /g, '-') === params.tag)
+  );
+
+  if (taggedArticles.length === 0) {
+    notFound();
+  }
 
   return (
     <div className="container mx-auto px-4 py-8">
-      <h1 className="font-headline text-4xl font-bold mb-8 border-b-2 pb-4">Video News</h1>
+      <div className="border-b-2 pb-4 mb-8">
+        <h1 className="font-headline text-4xl font-bold capitalize">
+          Articles tagged with "{tagName}"
+        </h1>
+        <p className="mt-2 text-muted-foreground">
+          Showing {taggedArticles.length} articles with this tag.
+        </p>
+      </div>
+
       <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
-        {videoArticles.map(article => {
+        {taggedArticles.map(article => {
           const articleImage = PlaceHolderImages.find(img => img.id === article.imageId);
           return (
-            <Card key={article.id} className="flex flex-col overflow-hidden transition-shadow hover:shadow-xl group">
+            <Card key={article.id} className="flex flex-col overflow-hidden transition-shadow hover:shadow-xl">
               {articleImage && (
                 <Link href={`/article/${article.slug}`} className="relative h-48 w-full block">
                   <Image
@@ -26,12 +41,12 @@ export default function VideoNewsPage() {
                     className="object-cover"
                     data-ai-hint={articleImage.imageHint}
                   />
-                  <div className="absolute inset-0 bg-black/30 flex items-center justify-center">
-                    <PlayCircle className="h-16 w-16 text-white/80 transform transition-transform group-hover:scale-110" />
-                  </div>
                 </Link>
               )}
               <CardHeader>
+                <Badge variant="secondary" className="mb-2 w-fit">
+                    <Link href={`/category/${article.category.toLowerCase()}`}>{article.category}</Link>
+                </Badge>
                 <CardTitle className="font-headline text-xl">
                   <Link href={`/article/${article.slug}`} className="hover:underline">
                     {article.title}
@@ -40,6 +55,9 @@ export default function VideoNewsPage() {
               </CardHeader>
               <CardContent className="flex-grow">
                 <p className="text-sm text-muted-foreground line-clamp-3">{article.summary}</p>
+                <p className="mt-4 text-xs text-muted-foreground">
+                    By <Link href={`/author/${encodeURIComponent(article.author)}`} className="hover:underline">{article.author}</Link> | {article.publishedDate}
+                </p>
               </CardContent>
             </Card>
           );

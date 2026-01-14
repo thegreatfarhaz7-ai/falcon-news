@@ -23,6 +23,7 @@ import type { Article } from '@/lib/types';
 import { Checkbox } from '@/components/ui/checkbox';
 import { Input } from '@/components/ui/input';
 import { useState } from 'react';
+import Link from 'next/link';
 
 interface ArticlesTableProps {
   articles: Article[];
@@ -99,10 +100,14 @@ export default function ArticlesTable({ articles }: ArticlesTableProps) {
                     onCheckedChange={(checked) => handleSelectRow(article.id, !!checked)}
                   />
                 </TableCell>
-                <TableCell className="font-medium max-w-[300px] truncate">{article.title}</TableCell>
+                <TableCell className="font-medium max-w-[300px] truncate">
+                    <Link href={`/article/${article.slug}`} className="hover:underline">{article.title}</Link>
+                </TableCell>
                 <TableCell className="hidden md:table-cell">{article.author}</TableCell>
                 <TableCell className="hidden lg:table-cell">
-                  <Badge variant="outline">{article.category}</Badge>
+                  <Badge variant="outline">
+                    <Link href={`/category/${article.category.toLowerCase()}`}>{article.category}</Link>
+                  </Badge>
                 </TableCell>
                 <TableCell>
                   <Badge variant={getStatusBadgeVariant(article.status)}>
@@ -120,13 +125,17 @@ export default function ArticlesTable({ articles }: ArticlesTableProps) {
                     </DropdownMenuTrigger>
                     <DropdownMenuContent align="end">
                       <DropdownMenuLabel>Actions</DropdownMenuLabel>
-                      <DropdownMenuItem>
-                        <Eye className="mr-2 h-4 w-4" />
-                        View
+                      <DropdownMenuItem asChild>
+                        <Link href={`/article/${article.slug}`}>
+                            <Eye className="mr-2 h-4 w-4" />
+                            View
+                        </Link>
                       </DropdownMenuItem>
-                      <DropdownMenuItem>
-                        <Edit className="mr-2 h-4 w-4" />
-                        Edit
+                      <DropdownMenuItem asChild>
+                        <Link href={`/dashboard/articles/edit/${article.id}`}>
+                            <Edit className="mr-2 h-4 w-4" />
+                            Edit
+                        </Link>
                       </DropdownMenuItem>
                       <DropdownMenuSeparator />
                       <DropdownMenuItem className="text-destructive">

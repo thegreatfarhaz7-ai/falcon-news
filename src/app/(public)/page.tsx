@@ -44,16 +44,16 @@ export default function HomePage() {
                       )}
                       <CardHeader className="relative -mt-24 border-t-4 border-primary bg-background/80 p-6 backdrop-blur-sm md:-mt-32">
                         <Badge variant="destructive" className="absolute -top-4 left-6">
-                          {article.category}
+                          <Link href={`/category/${article.category.toLowerCase()}`}>{article.category}</Link>
                         </Badge>
                         <CardTitle className="font-headline text-3xl md:text-5xl">
-                          <Link href="#" className="hover:underline">
+                          <Link href={`/article/${article.slug}`} className="hover:underline">
                             {article.title}
                           </Link>
                         </CardTitle>
                         <p className="pt-2 text-muted-foreground line-clamp-2">{article.summary}</p>
                         <p className="pt-4 text-sm text-muted-foreground">
-                          By {article.author} | {article.publishedDate}
+                          By <Link href={`/author/${encodeURIComponent(article.author)}`} className="hover:underline">{article.author}</Link> | {article.publishedDate}
                         </p>
                       </CardHeader>
                     </Card>
@@ -76,7 +76,7 @@ export default function HomePage() {
               {breakingArticles.map((article, index) => (
                 <div key={article.id} className={`space-y-2 ${index < breakingArticles.length - 1 ? 'border-b pb-4' : ''}`}>
                   <h3 className="font-headline text-lg font-bold leading-tight">
-                    <Link href="#" className="hover:underline">
+                    <Link href={`/article/${article.slug}`} className="hover:underline">
                       {article.title}
                     </Link>
                   </h3>
@@ -95,7 +95,7 @@ export default function HomePage() {
         <div className="flex items-center justify-between border-b-2 pb-2">
           <h2 className="font-headline text-3xl font-bold">Latest News</h2>
           <Button variant="link" asChild>
-            <Link href="#">
+            <Link href="/category/all">
               View All <ArrowRight className="ml-2 h-4 w-4" />
             </Link>
           </Button>
@@ -106,7 +106,7 @@ export default function HomePage() {
             return (
               <Card key={article.id} className="flex flex-col overflow-hidden transition-shadow hover:shadow-xl">
                 {articleImage && (
-                  <div className="relative h-48 w-full">
+                  <Link href={`/article/${article.slug}`} className="relative h-48 w-full block">
                     <Image
                       src={articleImage.imageUrl}
                       alt={article.title}
@@ -114,12 +114,14 @@ export default function HomePage() {
                       className="object-cover"
                       data-ai-hint={articleImage.imageHint}
                     />
-                  </div>
+                  </Link>
                 )}
                 <CardHeader>
-                  <Badge variant="secondary" className="mb-2 w-fit">{article.category}</Badge>
+                    <Badge variant="secondary" className="mb-2 w-fit">
+                        <Link href={`/category/${article.category.toLowerCase()}`}>{article.category}</Link>
+                    </Badge>
                   <CardTitle className="font-headline text-xl">
-                    <Link href="#" className="hover:underline">
+                    <Link href={`/article/${article.slug}`} className="hover:underline">
                       {article.title}
                     </Link>
                   </CardTitle>

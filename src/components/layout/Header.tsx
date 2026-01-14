@@ -28,7 +28,7 @@ const Header = () => {
                     <div className="p-4">
                         <nav className="mt-8 flex flex-col gap-4">
                             {CATEGORIES.map(link => (
-                            <Link key={link} href={link === 'Videos' ? '/videos' : '#'} className="text-lg font-medium hover:text-primary">
+                            <Link key={link} href={`/category/${link.toLowerCase()}`} className="text-lg font-medium hover:text-primary">
                                 {link}
                             </Link>
                             ))}
@@ -45,7 +45,7 @@ const Header = () => {
         <div className="flex-1 flex justify-center">
             <nav className="hidden items-center gap-6 lg:flex">
             {navLinks.map(link => (
-                <Link key={link} href="#" className="text-sm font-medium uppercase tracking-wider text-muted-foreground transition-colors hover:text-primary">
+                <Link key={link} href={`/category/${link.toLowerCase()}`} className="text-sm font-medium uppercase tracking-wider text-muted-foreground transition-colors hover:text-primary">
                 {link}
                 </Link>
             ))}
@@ -57,13 +57,15 @@ const Header = () => {
         </div>
 
         <div className="flex items-center gap-2">
-          <Button variant="ghost" size="icon">
-            <Search className="h-5 w-5" />
-            <span className="sr-only">Search</span>
+          <Button variant="ghost" size="icon" asChild>
+            <Link href="/search">
+              <Search className="h-5 w-5" />
+              <span className="sr-only">Search</span>
+            </Link>
           </Button>
           {!isAuthenticated && (
             <Button asChild>
-              <Link href="/dashboard">
+              <Link href="/login">
                 <LogIn className="mr-2 h-4 w-4" />
                 Login
               </Link>

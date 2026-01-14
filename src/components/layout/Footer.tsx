@@ -23,7 +23,7 @@ const Footer = () => {
             <ul className="mt-4 space-y-2">
               {CATEGORIES.slice(0, 5).map(category => (
                 <li key={category}>
-                  <Link href={category === 'Videos' ? '/videos' : '#'} className="text-sm hover:text-primary hover:underline">
+                  <Link href={`/category/${category.toLowerCase()}`} className="text-sm hover:text-primary hover:underline">
                     {category}
                   </Link>
                 </li>
@@ -34,8 +34,8 @@ const Footer = () => {
           <div className="col-span-1">
             <h3 className="font-headline font-bold">Company</h3>
             <ul className="mt-4 space-y-2">
-              <li><Link href="#" className="text-sm hover:text-primary hover:underline">About Us</Link></li>
-              <li><Link href="#" className="text-sm hover:text-primary hover:underline">Contact</Link></li>
+              <li><Link href="/about" className="text-sm hover:text-primary hover:underline">About Us</Link></li>
+              <li><Link href="/contact" className="text-sm hover:text-primary hover:underline">Contact</Link></li>
               <li><Link href="#" className="text-sm hover:text-primary hover:underline">Careers</Link></li>
             </ul>
           </div>
@@ -46,7 +46,7 @@ const Footer = () => {
                 {!isAuthenticated ? (
                     <li>
                         <Button asChild variant="outline">
-                            <Link href="/dashboard">
+                            <Link href="/login">
                                 <LogIn className="mr-2 h-4 w-4" />
                                 Login
                             </Link>
@@ -64,9 +64,9 @@ const Footer = () => {
         <div className="mt-8 border-t pt-8 text-center text-sm text-muted-foreground">
           <p>&copy; {new Date().getFullYear()} Falcon News. All Rights Reserved.</p>
           <div className="mt-2 space-x-4">
-            <Link href="#" className="hover:text-primary hover:underline">Privacy Policy</Link>
+            <Link href="/privacy" className="hover:text-primary hover:underline">Privacy Policy</Link>
             <span>&middot;</span>
-            <Link href="#" className="hover:text-primary hover:underline">Terms of Service</Link>
+            <Link href="/terms" className="hover:text-primary hover:underline">Terms of Service</Link>
           </div>
         </div>
       </div>
