@@ -3,11 +3,10 @@ import Logo from '@/components/shared/Logo';
 import { Button } from '@/components/ui/button';
 import { CATEGORIES } from '@/lib/constants';
 import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger } from '@/components/ui/sheet';
-import { Menu, Search, LogIn, Video } from 'lucide-react';
+import { Menu, Search, Video } from 'lucide-react';
 
 const Header = () => {
   const navLinks = CATEGORIES.slice(0, 6);
-  const isAuthenticated = false; // This will be dynamic later
 
   return (
     <header className="sticky top-0 z-50 border-b bg-background/80 backdrop-blur-sm">
@@ -63,14 +62,6 @@ const Header = () => {
               <span className="sr-only">Search</span>
             </Link>
           </Button>
-          {!isAuthenticated && (
-            <Button asChild>
-              <Link href="/login">
-                <LogIn className="mr-2 h-4 w-4" />
-                Login
-              </Link>
-            </Button>
-          )}
         </div>
       </div>
     </header>

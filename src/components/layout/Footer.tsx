@@ -1,11 +1,8 @@
 import Link from 'next/link';
 import Logo from '@/components/shared/Logo';
 import { CATEGORIES } from '@/lib/constants';
-import { Button } from '@/components/ui/button';
-import { LogIn } from 'lucide-react';
 
 const Footer = () => {
-  const isAuthenticated = false; // This will be dynamic later
 
   return (
     <footer className="bg-secondary text-secondary-foreground">
@@ -43,20 +40,9 @@ const Footer = () => {
           <div className="col-span-2 md:col-span-4 lg:col-span-2">
             <h3 className="font-headline font-bold">Account</h3>
              <ul className="mt-4 space-y-2">
-                {!isAuthenticated ? (
-                    <li>
-                        <Button asChild variant="outline">
-                            <Link href="/login">
-                                <LogIn className="mr-2 h-4 w-4" />
-                                Login
-                            </Link>
-                        </Button>
-                    </li>
-                ) : (
-                    <li>
-                        <Link href="/dashboard" className="text-sm hover:text-primary hover:underline">Dashboard</Link>
-                    </li>
-                )}
+                <li>
+                    <Link href="/dashboard" className="text-sm hover:text-primary hover:underline">Dashboard</Link>
+                </li>
                 <li><Link href="#" className="text-sm hover:text-primary hover:underline">Subscribe</Link></li>
              </ul>
           </div>
