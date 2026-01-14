@@ -65,6 +65,30 @@
       "description": "Diagram of a sports play on a screen",
       "imageUrl": "https://images.unsplash.com/photo-1612151387614-0d29a04ff5f3?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHxzcG9ydHMlMjBhbmFseXRpY3N8ZW58MHx8fHwxNzY4NDA1NTAyfDA&ixlib=rb-4.1.0&q=80&w=1080",
       "imageHint": "sports analytics"
+    },
+    {
+      "id": "video-1",
+      "description": "Mars rover on red planet",
+      "imageUrl": "https://images.unsplash.com/photo-1614726353141-9c5251486793?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHxtYXJzJTIwcm92ZXJ8ZW58MHx8fHwxNzY4NDA1NTAyfDA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "space mars"
+    },
+    {
+      "id": "video-2",
+      "description": "Close-up of sushi being prepared",
+      "imageUrl": "https://images.unsplash.com/photo-1579871494447-9811cf80d66c?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHxzdXNoaXxlbnwwfHx8fDE3Njg0MDU1MDJ8MA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "food sushi"
+    },
+    {
+      "id": "video-3",
+      "description": "Monarch butterfly on a flower",
+      "imageUrl": "https://images.unsplash.com/photo-1526487179043-0824b2781b49?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHxtb25hcmNoJTIwYnV0dGVyZmx5fGVufDB8fHx8MTc2ODQwNTUwMnww&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "nature butterfly"
+    },
+    {
+      "id": "video-4",
+      "description": "Gardens by the Bay in Singapore",
+      "imageUrl": "https://images.unsplash.com/photo-1525625293386-668f4238d769?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHxzaW5nYXBvcmUlMjBnYXJkZW5zfGVufDB8fHx8MTc2ODQwNTUwMnww&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "city garden"
     }
   ]
 }

@@ -23,7 +23,7 @@ const Footer = () => {
             <ul className="mt-4 space-y-2">
               {CATEGORIES.slice(0, 5).map(category => (
                 <li key={category}>
-                  <Link href="#" className="text-sm hover:text-primary hover:underline">
+                  <Link href={category === 'Videos' ? '/videos' : '#'} className="text-sm hover:text-primary hover:underline">
                     {category}
                   </Link>
                 </li>
@@ -46,7 +46,7 @@ const Footer = () => {
                 {!isAuthenticated ? (
                     <li>
                         <Button asChild variant="outline">
-                            <Link href="/login">
+                            <Link href="/dashboard">
                                 <LogIn className="mr-2 h-4 w-4" />
                                 Login
                             </Link>

@@ -15,5 +15,5 @@ export const CATEGORIES = [
   'Opinion',
   'Editorial',
   'Fact Check',
-  'Video News',
+  'Videos',
 ];

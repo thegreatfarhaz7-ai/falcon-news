@@ -3,10 +3,10 @@ import Logo from '@/components/shared/Logo';
 import { Button } from '@/components/ui/button';
 import { CATEGORIES } from '@/lib/constants';
 import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger } from '@/components/ui/sheet';
-import { Menu, Search, LogIn } from 'lucide-react';
+import { Menu, Search, LogIn, Video } from 'lucide-react';
 
 const Header = () => {
-  const navLinks = CATEGORIES.slice(0, 7);
+  const navLinks = CATEGORIES.slice(0, 6);
   const isAuthenticated = false; // This will be dynamic later
 
   return (
@@ -28,7 +28,7 @@ const Header = () => {
                     <div className="p-4">
                         <nav className="mt-8 flex flex-col gap-4">
                             {CATEGORIES.map(link => (
-                            <Link key={link} href="#" className="text-lg font-medium hover:text-primary">
+                            <Link key={link} href={link === 'Videos' ? '/videos' : '#'} className="text-lg font-medium hover:text-primary">
                                 {link}
                             </Link>
                             ))}
@@ -49,6 +49,10 @@ const Header = () => {
                 {link}
                 </Link>
             ))}
+             <Link href="/videos" className="text-sm font-medium uppercase tracking-wider text-muted-foreground transition-colors hover:text-primary flex items-center gap-1">
+                <Video className="h-4 w-4" />
+                Videos
+              </Link>
             </nav>
         </div>
 
@@ -59,7 +63,7 @@ const Header = () => {
           </Button>
           {!isAuthenticated && (
             <Button asChild>
-              <Link href="/login">
+              <Link href="/dashboard">
                 <LogIn className="mr-2 h-4 w-4" />
                 Login
               </Link>
