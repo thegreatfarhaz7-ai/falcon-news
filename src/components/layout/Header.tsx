@@ -2,7 +2,7 @@ import Link from 'next/link';
 import Logo from '@/components/shared/Logo';
 import { Button } from '@/components/ui/button';
 import { CATEGORIES } from '@/lib/constants';
-import { Sheet, SheetContent, SheetTrigger } from '@/components/ui/sheet';
+import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger } from '@/components/ui/sheet';
 import { Menu, Search } from 'lucide-react';
 
 const Header = () => {
@@ -21,8 +21,10 @@ const Header = () => {
                   </Button>
                 </SheetTrigger>
                 <SheetContent side="left">
+                    <SheetHeader className="p-4">
+                      <SheetTitle><Logo /></SheetTitle>
+                    </SheetHeader>
                     <div className="p-4">
-                        <Logo />
                         <nav className="mt-8 flex flex-col gap-4">
                             {CATEGORIES.map(link => (
                             <Link key={link} href="#" className="text-lg font-medium hover:text-primary">
