@@ -205,7 +205,7 @@ export const articles: Article[] = [
     imageId: 'editorial-1',
     category: 'Editorial',
     tags: ['Politics', 'Cooperation', 'Trust'],
-    author: 'The Editorial Board',
+    author: 'Falcon News',
     publishedDate: '2024-03-24',
     status: 'published',
   },
