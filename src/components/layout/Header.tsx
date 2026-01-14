@@ -12,7 +12,7 @@ const Header = () => {
     <header className="sticky top-0 z-50 border-b bg-background/80 backdrop-blur-sm">
       <div className="container mx-auto flex h-16 items-center justify-between px-4">
         <div className="flex flex-1 items-center gap-4">
-            <div className="lg:hidden">
+            <div className="lg:hidden flex items-center gap-4">
               <Sheet>
                 <SheetTrigger asChild>
                   <Button variant="ghost" size="icon">
@@ -35,11 +35,9 @@ const Header = () => {
                     </div>
                 </SheetContent>
               </Sheet>
+              <Logo />
             </div>
             <div className="hidden lg:block">
-                <Logo />
-            </div>
-             <div className="lg:hidden">
                 <Logo />
             </div>
         </div>
