@@ -11,8 +11,8 @@ const Header = () => {
   return (
     <header className="sticky top-0 z-50 border-b bg-background/80 backdrop-blur-sm">
       <div className="container mx-auto flex h-16 items-center justify-between px-4">
-        <div className="flex flex-1 items-center gap-4">
-            <div className="lg:hidden flex items-center gap-4">
+        <div className="flex flex-1 items-center gap-2">
+            <div className="lg:hidden flex items-center gap-2">
               <Sheet>
                 <SheetTrigger asChild>
                   <Button variant="ghost" size="icon">
@@ -35,7 +35,7 @@ const Header = () => {
                     </div>
                 </SheetContent>
               </Sheet>
-              <Logo />
+              <Logo className="whitespace-nowrap" />
             </div>
             <div className="hidden lg:block">
                 <Logo />
