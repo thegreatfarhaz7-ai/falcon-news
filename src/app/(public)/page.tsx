@@ -6,46 +6,64 @@ import { Badge } from '@/components/ui/badge';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { ArrowRight } from 'lucide-react';
+import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from '@/components/ui/carousel';
 
 export default function HomePage() {
-  const mainArticle = articles[0];
-  const breakingArticles = articles.slice(1, 5);
-  const latestArticles = articles.slice(5, 11);
-  const mainArticleImage = PlaceHolderImages.find(img => img.id === mainArticle.imageId);
+  const heroArticles = articles.slice(0, 4);
+  const breakingArticles = articles.slice(4, 8);
+  const latestArticles = articles.slice(8, 14);
 
   return (
     <div className="container mx-auto px-4 py-8">
       <main className="grid grid-cols-1 gap-8 lg:grid-cols-3">
-        {/* Main Article Section */}
+        {/* Hero Slider Section */}
         <div className="lg:col-span-2">
-          <Card className="overflow-hidden border-none shadow-2xl">
-            {mainArticleImage && (
-              <div className="relative h-64 w-full md:h-96">
-                <Image
-                  src={mainArticleImage.imageUrl}
-                  alt={mainArticle.title}
-                  fill
-                  className="object-cover"
-                  data-ai-hint={mainArticleImage.imageHint}
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent" />
-              </div>
-            )}
-            <CardHeader className="relative -mt-24 border-t-4 border-primary bg-background/80 p-6 backdrop-blur-sm md:-mt-32">
-              <Badge variant="destructive" className="absolute -top-4 left-6">
-                {mainArticle.category}
-              </Badge>
-              <CardTitle className="font-headline text-3xl md:text-5xl">
-                <Link href="#" className="hover:underline">
-                  {mainArticle.title}
-                </Link>
-              </CardTitle>
-              <p className="pt-2 text-muted-foreground">{mainArticle.summary}</p>
-              <p className="pt-4 text-sm text-muted-foreground">
-                By {mainArticle.author} | {mainArticle.publishedDate}
-              </p>
-            </CardHeader>
-          </Card>
+          <Carousel
+            opts={{
+              loop: true,
+            }}
+            className="group relative"
+          >
+            <CarouselContent>
+              {heroArticles.map((article) => {
+                const articleImage = PlaceHolderImages.find(img => img.id === article.imageId);
+                return (
+                  <CarouselItem key={article.id}>
+                    <Card className="overflow-hidden border-none shadow-2xl">
+                      {articleImage && (
+                        <div className="relative h-64 w-full md:h-96">
+                          <Image
+                            src={articleImage.imageUrl}
+                            alt={article.title}
+                            fill
+                            className="object-cover"
+                            data-ai-hint={articleImage.imageHint}
+                          />
+                          <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent" />
+                        </div>
+                      )}
+                      <CardHeader className="relative -mt-24 border-t-4 border-primary bg-background/80 p-6 backdrop-blur-sm md:-mt-32">
+                        <Badge variant="destructive" className="absolute -top-4 left-6">
+                          {article.category}
+                        </Badge>
+                        <CardTitle className="font-headline text-3xl md:text-5xl">
+                          <Link href="#" className="hover:underline">
+                            {article.title}
+                          </Link>
+                        </CardTitle>
+                        <p className="pt-2 text-muted-foreground line-clamp-2">{article.summary}</p>
+                        <p className="pt-4 text-sm text-muted-foreground">
+                          By {article.author} | {article.publishedDate}
+                        </p>
+                      </CardHeader>
+                    </Card>
+                  </CarouselItem>
+                );
+              })}
+            </CarouselContent>
+            <CarouselPrevious className="absolute left-4 top-1/2 -translate-y-1/2 z-10 opacity-0 group-hover:opacity-100 transition-opacity" />
+            <CarouselNext className="absolute right-4 top-1/2 -translate-y-1/2 z-10 opacity-0 group-hover:opacity-100 transition-opacity" />
+          </Carousel>
         </div>
 
         {/* Breaking News Sidebar */}
@@ -62,7 +80,7 @@ export default function HomePage() {
                       {article.title}
                     </Link>
                   </h3>
-                  <p className="text-sm text-muted-foreground">
+                  <p className="text-sm text-muted-foreground line-clamp-2">
                     {article.summary}
                   </p>
                 </div>
@@ -107,7 +125,7 @@ export default function HomePage() {
                   </CardTitle>
                 </CardHeader>
                 <CardContent className="flex-grow">
-                  <p className="text-sm text-muted-foreground">{article.summary}</p>
+                  <p className="text-sm text-muted-foreground line-clamp-3">{article.summary}</p>
                 </CardContent>
               </Card>
             );
