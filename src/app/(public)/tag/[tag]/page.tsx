@@ -16,6 +16,10 @@ export default function TagPage({ params }: { params: { tag: string } }) {
     notFound();
   }
 
+  const getArticleLink = (article: (typeof articles)[0]) => {
+    return article.category === 'Videos' ? `/videos/${article.slug}` : `/article/${article.slug}`;
+  };
+
   return (
     <div className="container mx-auto px-4 py-8">
       <div className="border-b-2 pb-4 mb-8">
@@ -33,7 +37,7 @@ export default function TagPage({ params }: { params: { tag: string } }) {
           return (
             <Card key={article.id} className="flex flex-col overflow-hidden transition-shadow hover:shadow-xl">
               {articleImage && (
-                <Link href={`/article/${article.slug}`} className="relative h-48 w-full block">
+                <Link href={getArticleLink(article)} className="relative h-48 w-full block">
                   <Image
                     src={articleImage.imageUrl}
                     alt={article.title}
@@ -48,7 +52,7 @@ export default function TagPage({ params }: { params: { tag: string } }) {
                     <Link href={`/category/${article.category.toLowerCase()}`}>{article.category}</Link>
                 </Badge>
                 <CardTitle className="font-headline text-xl">
-                  <Link href={`/article/${article.slug}`} className="hover:underline">
+                  <Link href={getArticleLink(article)} className="hover:underline">
                     {article.title}
                   </Link>
                 </CardTitle>

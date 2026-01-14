@@ -24,6 +24,10 @@ export default function CategoryPage({ params }: { params: { slug: string } }) {
     ? articles 
     : articles.filter(article => article.category.toLowerCase() === slug);
 
+  const getArticleLink = (article: (typeof articles)[0]) => {
+    return article.category === 'Videos' ? `/videos/${article.slug}` : `/article/${article.slug}`;
+  };
+
   return (
     <div className="container mx-auto px-4 py-8">
       <div className="border-b-2 pb-4 mb-8">
@@ -39,7 +43,7 @@ export default function CategoryPage({ params }: { params: { slug: string } }) {
           return (
             <Card key={article.id} className="flex flex-col overflow-hidden transition-shadow hover:shadow-xl">
               {articleImage && (
-                <Link href={`/article/${article.slug}`} className="relative h-48 w-full block">
+                <Link href={getArticleLink(article)} className="relative h-48 w-full block">
                   <Image
                     src={articleImage.imageUrl}
                     alt={article.title}
@@ -52,7 +56,7 @@ export default function CategoryPage({ params }: { params: { slug: string } }) {
               <CardHeader>
                 <Badge variant="secondary" className="mb-2 w-fit">{article.category}</Badge>
                 <CardTitle className="font-headline text-xl">
-                  <Link href={`/article/${article.slug}`} className="hover:underline">
+                  <Link href={getArticleLink(article)} className="hover:underline">
                     {article.title}
                   </Link>
                 </CardTitle>

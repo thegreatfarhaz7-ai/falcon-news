@@ -34,6 +34,10 @@ export default function SearchPage() {
     window.history.pushState(null, '', `?q=${encodeURIComponent(query)}`);
   };
 
+  const getArticleLink = (article: (typeof articles)[0]) => {
+    return article.category === 'Videos' ? `/videos/${article.slug}` : `/article/${article.slug}`;
+  };
+
   return (
     <div className="container mx-auto px-4 py-8">
       <h1 className="font-headline text-4xl font-bold mb-8">Search News</h1>
@@ -67,7 +71,7 @@ export default function SearchPage() {
             return (
                 <Card key={article.id} className="flex flex-col overflow-hidden transition-shadow hover:shadow-xl">
                 {articleImage && (
-                  <Link href={`/article/${article.slug}`} className="relative h-48 w-full block">
+                  <Link href={getArticleLink(article)} className="relative h-48 w-full block">
                     <Image
                       src={articleImage.imageUrl}
                       alt={article.title}
@@ -82,7 +86,7 @@ export default function SearchPage() {
                       <Link href={`/category/${article.category.toLowerCase()}`}>{article.category}</Link>
                   </Badge>
                   <CardTitle className="font-headline text-xl">
-                    <Link href={`/article/${article.slug}`} className="hover:underline">
+                    <Link href={getArticleLink(article)} className="hover:underline">
                       {article.title}
                     </Link>
                   </CardTitle>

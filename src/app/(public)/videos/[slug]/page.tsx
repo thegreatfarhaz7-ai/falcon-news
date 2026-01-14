@@ -6,17 +6,17 @@ import { notFound } from 'next/navigation';
 import { Badge } from '@/components/ui/badge';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { Youtube } from 'lucide-react';
 
-export default function ArticlePage({ params }: { params: { slug: string } }) {
+export default function VideoArticlePage({ params }: { params: { slug: string } }) {
   const article = articles.find((a) => a.slug === params.slug);
 
-  if (!article || article.category === 'Videos') {
+  if (!article || article.category !== 'Videos') {
     notFound();
   }
 
-  const articleImage = PlaceHolderImages.find(img => img.id === article.imageId);
   const relatedArticles = articles.filter(a => a.category === article.category && a.id !== article.id).slice(0, 3);
-
+  
   const getArticleLink = (article: (typeof articles)[0]) => {
     return article.category === 'Videos' ? `/videos/${article.slug}` : `/article/${article.slug}`;
   };
@@ -45,25 +45,18 @@ export default function ArticlePage({ params }: { params: { slug: string } }) {
             </div>
           </header>
 
-          {articleImage && (
-            <div className="relative mb-8 h-[300px] w-full md:h-[500px]">
-              <Image
-                src={articleImage.imageUrl}
-                alt={article.title}
-                fill
-                className="rounded-lg object-cover"
-                data-ai-hint={articleImage.imageHint}
-              />
-            </div>
-          )}
+          <div className="aspect-video w-full overflow-hidden rounded-lg border bg-muted mb-8">
+              <div className="w-full h-full flex items-center justify-center">
+                  <div className="text-center">
+                      <Youtube className="mx-auto h-16 w-16 text-muted-foreground" />
+                      <p className="mt-2 text-muted-foreground">YouTube embed placeholder</p>
+                  </div>
+              </div>
+          </div>
 
           <div className="prose prose-lg max-w-none dark:prose-invert">
             <p>{article.content}</p>
-            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
-            <h3>A Subheading for More Detail</h3>
-            <p>Curabitur pretium tincidunt lacus. Nulla gravida orci a odio. Nullam varius, turpis et commodo pharetra, est eros bibendum elit, nec luctus magna felis sollicitudin mauris. Integer in mauris eu nibh euismod gravida. Duis ac tellus et risus vulputate vehicula. Donec lobortis risus a elit. Etiam tempor. Ut ullamcorper, ligula eu tempor congue, eros est euismod turpis, id tincidunt sapien risus a quam. Maecenas fermentum consequat mi. Donec fermentum. Pellentesque malesuada nulla a mi.</p>
-            <blockquote>"This is an insightful blockquote that adds emphasis to a key point in the article."</blockquote>
-            <p>Duis ac tellus et risus vulputate vehicula. Donec lobortis risus a elit. Etiam tempor. Ut ullamcorper, ligula eu tempor congue, eros est euismod turpis, id tincidunt sapien risus a quam. Maecenas fermentum consequat mi. Donec fermentum. Pellentesque malesuada nulla a mi. Duis sapien sem, aliquet nec, commodo eget, consequat quis, neque. Praesent vitae quam quis diam laoreet vestibulum. In pellen tesque, purus ut tincidunt vehicula, leo leo commodo nunc, at molestie elit lectus nec sapien. Cras ut enim.</p>
+            <p>This section would typically contain a transcript or additional context for the video. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
           </div>
 
           <div className="mt-8">
@@ -82,7 +75,7 @@ export default function ArticlePage({ params }: { params: { slug: string } }) {
           <div className="sticky top-24">
             <Card>
               <CardHeader>
-                <CardTitle>Related Articles</CardTitle>
+                <CardTitle>Related Videos</CardTitle>
               </CardHeader>
               <CardContent className="space-y-4">
                 {relatedArticles.map(related => {

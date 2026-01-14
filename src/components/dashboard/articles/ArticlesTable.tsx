@@ -61,6 +61,10 @@ export default function ArticlesTable({ articles }: ArticlesTableProps) {
     }
   };
 
+  const getArticleLink = (article: Article) => {
+    return article.category === 'Videos' ? `/videos/${article.slug}` : `/article/${article.slug}`;
+  };
+
   const isAllSelected = selectedRows.length > 0 && selectedRows.length === articles.length;
   const isSomeSelected = selectedRows.length > 0 && selectedRows.length < articles.length;
 
@@ -101,7 +105,7 @@ export default function ArticlesTable({ articles }: ArticlesTableProps) {
                   />
                 </TableCell>
                 <TableCell className="font-medium max-w-[300px] truncate">
-                    <Link href={`/article/${article.slug}`} className="hover:underline">{article.title}</Link>
+                    <Link href={getArticleLink(article)} className="hover:underline">{article.title}</Link>
                 </TableCell>
                 <TableCell className="hidden md:table-cell">{article.author}</TableCell>
                 <TableCell className="hidden lg:table-cell">
@@ -126,7 +130,7 @@ export default function ArticlesTable({ articles }: ArticlesTableProps) {
                     <DropdownMenuContent align="end">
                       <DropdownMenuLabel>Actions</DropdownMenuLabel>
                       <DropdownMenuItem asChild>
-                        <Link href={`/article/${article.slug}`}>
+                        <Link href={getArticleLink(article)}>
                             <Eye className="mr-2 h-4 w-4" />
                             View
                         </Link>

@@ -13,6 +13,10 @@ export default function HomePage() {
   const breakingArticles = articles.slice(4, 8);
   const latestArticles = articles.slice(8, 14);
 
+  const getArticleLink = (article: (typeof articles)[0]) => {
+    return article.category === 'Videos' ? `/videos/${article.slug}` : `/article/${article.slug}`;
+  };
+
   return (
     <div className="container mx-auto px-4 py-8">
       <main className="grid grid-cols-1 gap-8 lg:grid-cols-3">
@@ -47,7 +51,7 @@ export default function HomePage() {
                           <Link href={`/category/${article.category.toLowerCase()}`}>{article.category}</Link>
                         </Badge>
                         <CardTitle className="font-headline text-3xl md:text-5xl">
-                          <Link href={`/article/${article.slug}`} className="hover:underline">
+                          <Link href={getArticleLink(article)} className="hover:underline">
                             {article.title}
                           </Link>
                         </CardTitle>
@@ -76,7 +80,7 @@ export default function HomePage() {
               {breakingArticles.map((article, index) => (
                 <div key={article.id} className={`space-y-2 ${index < breakingArticles.length - 1 ? 'border-b pb-4' : ''}`}>
                   <h3 className="font-headline text-lg font-bold leading-tight">
-                    <Link href={`/article/${article.slug}`} className="hover:underline">
+                    <Link href={getArticleLink(article)} className="hover:underline">
                       {article.title}
                     </Link>
                   </h3>
@@ -106,7 +110,7 @@ export default function HomePage() {
             return (
               <Card key={article.id} className="flex flex-col overflow-hidden transition-shadow hover:shadow-xl">
                 {articleImage && (
-                  <Link href={`/article/${article.slug}`} className="relative h-48 w-full block">
+                  <Link href={getArticleLink(article)} className="relative h-48 w-full block">
                     <Image
                       src={articleImage.imageUrl}
                       alt={article.title}
@@ -121,7 +125,7 @@ export default function HomePage() {
                         <Link href={`/category/${article.category.toLowerCase()}`}>{article.category}</Link>
                     </Badge>
                   <CardTitle className="font-headline text-xl">
-                    <Link href={`/article/${article.slug}`} className="hover:underline">
+                    <Link href={getArticleLink(article)} className="hover:underline">
                       {article.title}
                     </Link>
                   </CardTitle>

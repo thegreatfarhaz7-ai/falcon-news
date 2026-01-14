@@ -6,7 +6,6 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { PlayCircle } from 'lucide-react';
 
 export default function VideoNewsPage() {
-  // Assuming last 4 articles are video news for placeholder
   const videoArticles = articles.filter(a => a.category === 'Videos');
 
   return (
@@ -18,7 +17,7 @@ export default function VideoNewsPage() {
           return (
             <Card key={article.id} className="flex flex-col overflow-hidden transition-shadow hover:shadow-xl group">
               {articleImage && (
-                <Link href={`/article/${article.slug}`} className="relative h-48 w-full block">
+                <Link href={`/videos/${article.slug}`} className="relative h-48 w-full block">
                   <Image
                     src={articleImage.imageUrl}
                     alt={article.title}
@@ -33,7 +32,7 @@ export default function VideoNewsPage() {
               )}
               <CardHeader>
                 <CardTitle className="font-headline text-xl">
-                  <Link href={`/article/${article.slug}`} className="hover:underline">
+                  <Link href={`/videos/${article.slug}`} className="hover:underline">
                     {article.title}
                   </Link>
                 </CardTitle>
