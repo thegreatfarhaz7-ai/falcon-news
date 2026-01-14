@@ -7,6 +7,7 @@ import {
   SidebarMenuItem,
   SidebarMenuButton,
   SidebarTrigger,
+  useSidebar,
 } from '@/components/ui/sidebar';
 import Logo from '@/components/shared/Logo';
 import { LayoutDashboard, Newspaper, Sparkles, Users, Settings } from 'lucide-react';
@@ -15,6 +16,7 @@ import Link from 'next/link';
 
 export default function DashboardSidebar() {
   const pathname = usePathname();
+  const { state } = useSidebar();
 
   const menuItems = [
     { href: '/dashboard', label: 'Dashboard', icon: LayoutDashboard },
@@ -26,10 +28,10 @@ export default function DashboardSidebar() {
 
   return (
     <>
-      <SidebarHeader className="border-b">
+      <SidebarHeader>
         <div className="flex w-full items-center justify-between p-2">
             <Logo />
-            <SidebarTrigger />
+            <SidebarTrigger className="lg:hidden" />
         </div>
       </SidebarHeader>
       <SidebarContent>
