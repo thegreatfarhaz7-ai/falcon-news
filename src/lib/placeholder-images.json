@@ -89,6 +89,30 @@
       "description": "Gardens by the Bay in Singapore",
       "imageUrl": "https://images.unsplash.com/photo-1525625293386-668f4238d769?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHxzaW5nYXBvcmUlMjBnYXJkZW5zfGVufDB8fHx8MTc2ODQwNTUwMnww&ixlib=rb-4.1.0&q=80&w=1080",
       "imageHint": "city garden"
+    },
+    {
+      "id": "editorial-1",
+      "description": "Two clay figures with thumbs up.",
+      "imageUrl": "https://images.unsplash.com/photo-1640030104754-0a33c686c533?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwzfHxjb29wZXJhdGlvbiUyMHRydXN0fGVufDB8fHx8MTc2ODQwOTE3OXww&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "cooperation trust"
+    },
+    {
+      "id": "editorial-2",
+      "description": "Black and white portrait of a woman.",
+      "imageUrl": "https://images.unsplash.com/photo-1614283233556-f35b0c801ef1?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw5fHx3b21hbiUyMHBvcnRyYWl0fGVufDB8fHx8MTc2ODMzNTg3OXww&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "woman portrait"
+    },
+    {
+      "id": "editorial-3",
+      "description": "Black and white portrait of a man.",
+      "imageUrl": "https://images.unsplash.com/photo-1624395213043-fa2e123b2656?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw4fHxtYW4lMjBwb3J0cmFpdHxlbnwwfHx8fDE3NjgzNzU3MDl8MA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "man portrait"
+    },
+    {
+      "id": "editorial-4",
+      "description": "Black and white portrait of a woman looking aside.",
+      "imageUrl": "https://images.unsplash.com/photo-1522075782449-e45a34f1ddfb?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw3fHx3b21hbiUyMHRoaW5raW5nfGVufDB8fHx8MTc2ODQwOTE3OXww&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "woman thinking"
     }
   ]
 }
