@@ -8,8 +8,8 @@ import Logo from '@/components/shared/Logo';
 import { cn } from '@/lib/utils';
 
 const navItems = [
-  { href: '/', label: 'Home', icon: Home },
   { href: '/articles', label: 'Articles', icon: Newspaper },
+  { href: '/', label: 'Home', icon: Home },
   { href: '/videos', label: 'Videos', icon: Video },
 ];
 
