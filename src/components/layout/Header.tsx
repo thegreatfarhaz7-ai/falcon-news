@@ -1,4 +1,3 @@
-
 'use client';
 import * as React from 'react';
 import Link from 'next/link';
@@ -25,7 +24,7 @@ const Header = () => {
 
 
   return (
-    <header className="border-b bg-background">
+    <header className="sticky top-0 z-50 border-b bg-background">
       <div className="container mx-auto flex h-16 items-center justify-between px-4">
         <div className="flex items-center gap-2 lg:flex-1">
             <Sheet>
@@ -92,9 +91,6 @@ const Header = () => {
             </DropdownMenuContent>
           </DropdownMenu>
 
-          <Button variant="default" size="sm" asChild>
-            <Link href="#">Subscribe</Link>
-          </Button>
         </div>
       </div>
     </header>
