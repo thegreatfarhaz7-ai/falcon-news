@@ -49,7 +49,7 @@ export default function TagPage({ params }: { params: { tag: string } }) {
               )}
               <CardHeader>
                 <Badge variant="secondary" className="mb-2 w-fit">
-                    <Link href={`/category/${article.category.toLowerCase()}`}>{article.category}</Link>
+                    {article.category}
                 </Badge>
                 <CardTitle className="font-headline text-xl">
                   <Link href={getArticleLink(article)} className="hover:underline">

@@ -5,12 +5,11 @@ import { usePathname } from 'next/navigation';
 import { Home, LayoutGrid, TrendingUp, Video } from 'lucide-react';
 import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger } from '@/components/ui/sheet';
 import Logo from '@/components/shared/Logo';
-import { CATEGORIES } from '@/lib/constants';
 import { cn } from '@/lib/utils';
 
 const navItems = [
   { href: '/', label: 'Home', icon: Home },
-  { href: '/category/trending', label: 'Trending', icon: TrendingUp },
+  { href: '/#trending', label: 'Trending', icon: TrendingUp },
   { href: '/videos', label: 'Videos', icon: Video },
 ];
 
@@ -20,7 +19,9 @@ const mobileNavLinks = [
     { href: '/editorial', label: 'Editorial' },
     { href: '/videos', label: 'Videos' },
     { href: '/contact', label: 'Contact' },
-    ...CATEGORIES.map(cat => ({ href: `/category/${cat.toLowerCase().replace(' ', '-')}`, label: cat }))
+    { href: '/#technology', label: 'Technology' },
+    { href: '/#business', label: 'Business' },
+    { href: '/#sports', label: 'Sports' },
 ]
 
 export default function BottomNavBar() {

@@ -1,11 +1,14 @@
 import Link from 'next/link';
 import Logo from '@/components/shared/Logo';
-import { CATEGORIES } from '@/lib/constants';
-import { Globe, Share2, Twitter, Facebook, Instagram } from 'lucide-react';
+import { Globe, Twitter, Facebook, Instagram } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 
 const Footer = () => {
-  const footerSections = CATEGORIES.slice(0, 4);
+  const footerSections = [
+    { name: 'Technology', href: '/#technology' },
+    { name: 'Business', href: '/#business' },
+    { name: 'Sports', href: '/#sports' },
+  ];
 
   return (
     <footer className="bg-[#111111] text-gray-300 font-sans">
@@ -31,9 +34,9 @@ const Footer = () => {
             <ul className="mt-4 space-y-3">
               <li><Link href="/articles" className="text-sm text-gray-400 hover:text-white hover:underline">All Articles</Link></li>
               {footerSections.map(category => (
-                <li key={category}>
-                  <Link href={`/category/${category.toLowerCase().replace(' ','-')}`} className="text-sm text-gray-400 hover:text-white hover:underline">
-                    {category}
+                <li key={category.name}>
+                  <Link href={category.href} className="text-sm text-gray-400 hover:text-white hover:underline">
+                    {category.name}
                   </Link>
                 </li>
               ))}

@@ -61,9 +61,9 @@ const CategorySection = async ({ language, category, title }: { language: string
     return (
         <section className="mt-12">
             <div className="flex items-center justify-between border-b-2 pb-2 mb-6">
-                <h2 className="font-headline text-3xl font-bold capitalize">{title}</h2>
+                <h2 id={category.toLowerCase()} className="font-headline text-3xl font-bold capitalize scroll-mt-24">{title}</h2>
                 <Button variant="link" asChild>
-                    <Link href={`/category/${category}`}>
+                    <Link href={`/articles`}>
                         View All <ArrowRight className="ml-2 h-4 w-4" />
                     </Link>
                 </Button>
@@ -214,7 +214,7 @@ export default async function HomePage({ searchParams }: { searchParams: { lang?
         {/* Trending News Bar */}
         <section className="mt-12">
              <div className="flex items-center justify-between border-b-2 pb-2">
-                 <h2 className="font-headline text-3xl font-bold">Trending</h2>
+                 <h2 id="trending" className="font-headline text-3xl font-bold scroll-mt-24">Trending</h2>
              </div>
              <div className="mt-6 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
                {trendingArticles.map((article, index) => {

@@ -27,7 +27,7 @@ export default function ArticlePage({ params }: { params: { slug: string } }) {
         <article className="lg:col-span-3">
           <header className="mb-8">
             <Badge variant="secondary" className="mb-2">
-                <Link href={`/category/${article.category.toLowerCase()}`}>{article.category}</Link>
+                {article.category}
             </Badge>
             <h1 className="font-headline text-4xl font-bold md:text-6xl">{article.title}</h1>
             <p className="mt-4 text-lg text-muted-foreground">{article.summary}</p>

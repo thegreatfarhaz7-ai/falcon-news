@@ -110,7 +110,7 @@ export default function ArticlesTable({ articles }: ArticlesTableProps) {
                 <TableCell className="hidden md:table-cell">{article.author}</TableCell>
                 <TableCell className="hidden lg:table-cell">
                   <Badge variant="outline">
-                    <Link href={`/category/${article.category.toLowerCase()}`}>{article.category}</Link>
+                    {article.category}
                   </Badge>
                 </TableCell>
                 <TableCell>

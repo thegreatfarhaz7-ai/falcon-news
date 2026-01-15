@@ -3,14 +3,17 @@ import * as React from 'react';
 import Link from 'next/link';
 import Logo from '@/components/shared/Logo';
 import { Button } from '@/components/ui/button';
-import { CATEGORIES } from '@/lib/constants';
 import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger } from '@/components/ui/sheet';
 import { Menu, Search, Video, Globe } from 'lucide-react';
 import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from '@/components/ui/dropdown-menu';
 
 const Header = () => {
-  const navLinks = CATEGORIES.slice(0, 6);
+  const navLinks = [
+    { name: 'Technology', href: '/#technology' },
+    { name: 'Business', href: '/#business' },
+    { name: 'Sports', href: '/#sports' },
+  ];
   const router = useRouter();
   const pathname = usePathname();
   const searchParams = useSearchParams();
@@ -21,7 +24,7 @@ const Header = () => {
     { href: '/editorial', label: 'Editorial' },
     { href: '/videos', label: 'Videos' },
     { href: '/contact', label: 'Contact' },
-    ...CATEGORIES.map(cat => ({ href: `/category/${cat.toLowerCase().replace(' ', '-')}`, label: cat }))
+    ...navLinks.map(cat => ({ href: cat.href, label: cat.name }))
   ]
 
   const handleLanguageChange = (lang: string) => {
@@ -65,8 +68,8 @@ const Header = () => {
         <div className="hidden flex-1 justify-center lg:flex">
             <nav className="flex items-center gap-6">
             {navLinks.map(link => (
-                <Link key={link} href={`/category/${link.toLowerCase().replace(' ','-')}`} className="text-sm font-medium uppercase tracking-wider text-muted-foreground transition-colors hover:text-primary">
-                {link}
+                <Link key={link.name} href={link.href} className="text-sm font-medium uppercase tracking-wider text-muted-foreground transition-colors hover:text-primary">
+                {link.name}
                 </Link>
             ))}
              <Link href="/videos" className="text-sm font-medium uppercase tracking-wider text-muted-foreground transition-colors hover:text-primary flex items-center gap-1">
