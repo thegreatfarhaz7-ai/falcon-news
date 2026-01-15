@@ -10,14 +10,8 @@ import {
   SheetTitle,
   SheetTrigger,
 } from '@/components/ui/sheet';
-import { Menu, Search, Globe, ChevronDown, UserCircle } from 'lucide-react';
-import { usePathname, useRouter, useSearchParams } from 'next/navigation';
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuTrigger,
-} from '@/components/ui/dropdown-menu';
+import { Menu, Search, UserCircle } from 'lucide-react';
+import LanguageSwitcher from './LanguageSwitcher';
 
 const Header = () => {
   const navLinks = [
@@ -27,18 +21,6 @@ const Header = () => {
     { name: 'Videos', href: '/videos' },
     { name: 'Contact', href: '/contact' },
   ];
-  const router = useRouter();
-  const pathname = usePathname();
-  const searchParams = useSearchParams();
-  const lang = searchParams.get('lang') || 'en';
-
-  const handleLanguageChange = (lang: string) => {
-    const current = new URLSearchParams(Array.from(searchParams.entries()));
-    current.set('lang', lang);
-    const search = current.toString();
-    const query = search ? `?${search}` : '';
-    router.push(`${pathname}${query}`);
-  };
 
   return (
     <header className="fixed top-0 z-50 w-full border-b bg-background">
@@ -97,22 +79,7 @@ const Header = () => {
             </Link>
           </Button>
 
-          <DropdownMenu>
-            <DropdownMenuTrigger asChild>
-              <Button variant="ghost" className="gap-1">
-                {lang === 'hi' ? 'हिंदी' : 'English'}
-                <ChevronDown className="h-4 w-4" />
-              </Button>
-            </DropdownMenuTrigger>
-            <DropdownMenuContent align="end">
-              <DropdownMenuItem onSelect={() => handleLanguageChange('en')}>
-                English
-              </DropdownMenuItem>
-              <DropdownMenuItem onSelect={() => handleLanguageChange('hi')}>
-                Hindi
-              </DropdownMenuItem>
-            </DropdownMenuContent>
-          </DropdownMenu>
+          <LanguageSwitcher />
 
           <Button variant="ghost" size="icon" asChild>
             <Link href="/dashboard">
