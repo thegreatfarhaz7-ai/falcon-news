@@ -11,7 +11,7 @@ import {
   SheetTrigger,
 } from '@/components/ui/sheet';
 import { Menu, Search, UserCircle } from 'lucide-react';
-import LanguageSwitcher from './LanguageSwitcher';
+import LanguageSwitcher from '@/components/shared/LanguageSwitcher';
 
 const Header = () => {
   const navLinks = [
