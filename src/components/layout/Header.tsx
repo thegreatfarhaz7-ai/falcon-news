@@ -1,16 +1,31 @@
+
+'use client';
+import * as React from 'react';
 import Link from 'next/link';
 import Logo from '@/components/shared/Logo';
 import { Button } from '@/components/ui/button';
 import { CATEGORIES } from '@/lib/constants';
 import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger } from '@/components/ui/sheet';
-import { Menu, Search, Video } from 'lucide-react';
-import { cn } from '@/lib/utils';
+import { Menu, Search, Video, Globe } from 'lucide-react';
+import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 
 const Header = () => {
   const navLinks = CATEGORIES.slice(0, 6);
+  const router = useRouter();
+  const pathname = usePathname();
+  const searchParams = useSearchParams();
+
+  const handleLanguageChange = (lang: string) => {
+    const current = new URLSearchParams(Array.from(searchParams.entries()));
+    current.set('lang', lang);
+    const search = current.toString();
+    const query = search ? `?${search}` : '';
+    router.push(`${pathname}${query}`);
+  };
+
 
   return (
-    <header className="sticky top-0 z-50 border-b bg-background">
+    <header className="border-b bg-background">
       <div className="container mx-auto flex h-16 items-center justify-between px-4">
         <div className="flex items-center gap-2 lg:flex-1">
             <Sheet>
@@ -59,6 +74,24 @@ const Header = () => {
               <span className="sr-only">Search</span>
             </Link>
           </Button>
+
+          <DropdownMenu>
+            <DropdownMenuTrigger asChild>
+              <Button variant="ghost" size="icon">
+                <Globe className="h-5 w-5" />
+                <span className="sr-only">Change language</span>
+              </Button>
+            </DropdownMenuTrigger>
+            <DropdownMenuContent align="end">
+              <DropdownMenuItem onSelect={() => handleLanguageChange('en')}>
+                English
+              </DropdownMenuItem>
+              <DropdownMenuItem onSelect={() => handleLanguageChange('hi')}>
+                Hindi
+              </DropdownMenuItem>
+            </DropdownMenuContent>
+          </DropdownMenu>
+
           <Button variant="default" size="sm" asChild>
             <Link href="#">Subscribe</Link>
           </Button>
@@ -67,5 +100,49 @@ const Header = () => {
     </header>
   );
 };
+
+function DropdownMenu(props: { children: React.ReactNode }) {
+    const [open, setOpen] = React.useState(false);
+    return (
+        <div className="relative">
+            {React.Children.map(props.children, (child) => {
+                if (React.isValidElement(child) && child.type === DropdownMenuTrigger) {
+                    return React.cloneElement(child, { onClick: () => setOpen(!open) } as any);
+                }
+                if (React.isValidElement(child) && child.type === DropdownMenuContent) {
+                    return open ? child : null;
+                }
+                return child;
+            })}
+        </div>
+    );
+}
+
+function DropdownMenuTrigger(props: { asChild?: boolean, children: React.ReactNode, onClick?: () => void }) {
+    const { asChild, children, ...rest } = props;
+    if (asChild) {
+        return React.cloneElement(children as React.ReactElement, rest);
+    }
+    return <button {...rest}>{children}</button>;
+}
+
+function DropdownMenuContent(props: { align?: 'end' | 'start', children: React.ReactNode }) {
+    const alignClass = props.align === 'end' ? 'right-0' : 'left-0';
+    return (
+        <div className={`absolute z-50 mt-2 min-w-[8rem] overflow-hidden rounded-md border bg-popover p-1 text-popover-foreground shadow-md ${alignClass}`}>
+            {React.Children.map(props.children, (child) => {
+                 if (React.isValidElement(child) && child.type === DropdownMenuItem) {
+                    return React.cloneElement(child, {  } as any);
+                }
+                return child;
+            })}
+        </div>
+    );
+}
+
+function DropdownMenuItem(props: { onSelect?: () => void, children: React.ReactNode }) {
+    return <div onClick={props.onSelect} className="relative flex cursor-default select-none items-center rounded-sm px-2 py-1.5 text-sm outline-none transition-colors focus:bg-accent focus:text-accent-foreground data-[disabled]:pointer-events-none data-[disabled]:opacity-50">{props.children}</div>
+}
+
 
 export default Header;

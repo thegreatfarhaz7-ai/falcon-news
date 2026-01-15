@@ -5,13 +5,16 @@ export async function GET(request: NextRequest) {
     const { searchParams } = new URL(request.url);
     const category = searchParams.get('category') || 'general';
     const pageSize = searchParams.get('pageSize') || '20';
+    const language = searchParams.get('language') || 'en';
     const apiKey = process.env.NEWS_API_KEY;
 
     if (!apiKey) {
         return NextResponse.json({ error: 'News API key is not configured.' }, { status: 500 });
     }
 
-    const newsApiUrl = `https://newsapi.org/v2/top-headlines?country=us&category=${category}&pageSize=${pageSize}&apiKey=${apiKey}`;
+    const country = language === 'en' ? 'us' : 'in';
+
+    const newsApiUrl = `https://newsapi.org/v2/top-headlines?country=${country}&language=${language}&category=${category}&pageSize=${pageSize}&apiKey=${apiKey}`;
 
     try {
         const apiResponse = await fetch(newsApiUrl, {

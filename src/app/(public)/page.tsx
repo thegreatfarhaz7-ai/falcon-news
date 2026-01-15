@@ -5,7 +5,13 @@ import { Badge } from '@/components/ui/badge';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { ArrowRight } from 'lucide-react';
-import { notFound } from 'next/navigation';
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from '@/components/ui/dropdown-menu';
+import { Globe } from 'lucide-react';
 
 type Article = {
   source: {
@@ -21,9 +27,9 @@ type Article = {
   content: string;
 };
 
-async function getNews(category?: string, pageSize = 20): Promise<Article[]> {
+async function getNews(language = 'en', category?: string, pageSize = 20): Promise<Article[]> {
     const baseUrl = process.env.NEXT_PUBLIC_APP_URL || 'http://localhost:9002';
-    let url = `${baseUrl}/api/news?pageSize=${pageSize}`;
+    let url = `${baseUrl}/api/news?pageSize=${pageSize}&language=${language}`;
     if (category) {
         url += `&category=${category}`;
     }
@@ -44,8 +50,8 @@ async function getNews(category?: string, pageSize = 20): Promise<Article[]> {
     }
 }
 
-const CategorySection = async ({ category, title }: { category: string; title: string }) => {
-    const articles = await getNews(category, 7);
+const CategorySection = async ({ language, category, title }: { language: string, category: string; title: string }) => {
+    const articles = await getNews(language, category, 7);
     if (!articles || articles.length < 1) return null;
 
     const mainArticle = articles[0];
@@ -139,8 +145,9 @@ const CategorySection = async ({ category, title }: { category: string; title: s
     );
 };
 
-export default async function HomePage() {
-  const topHeadlines = await getNews('general', 10);
+export default async function HomePage({ searchParams }: { searchParams: { lang?: string } }) {
+  const lang = searchParams?.lang || 'en';
+  const topHeadlines = await getNews(lang, 'general', 10);
 
   if (!topHeadlines || topHeadlines.length === 0) {
     return (
@@ -239,9 +246,9 @@ export default async function HomePage() {
         </section>
 
         {/* Category Sections */}
-        <CategorySection category="technology" title="Technology" />
-        <CategorySection category="business" title="Business" />
-        <CategorySection category="sports" title="Sports" />
+        <CategorySection language={lang} category="technology" title="Technology" />
+        <CategorySection language={lang} category="business" title="Business" />
+        <CategorySection language={lang} category="sports" title="Sports" />
 
     </div>
   );
