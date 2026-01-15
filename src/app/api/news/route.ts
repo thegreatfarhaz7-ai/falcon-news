@@ -13,7 +13,7 @@ export async function GET(request: NextRequest) {
 
     const country = language === 'en' ? 'us' : 'in';
 
-    const gnewsApiUrl = `https://gnews.io/api/v4/top-headlines?category=${category}&lang=${language}&country=${country}&max=${pageSize}&apikey=${apiKey}`;
+    const gnewsApiUrl = `https://gnews.io/api/v4/top-headlines?category=${category}&lang=${language}&country=${country}&max=${pageSize}&token=${apiKey}`;
     
     try {
         const apiResponse = await fetch(gnewsApiUrl, {
