@@ -22,7 +22,7 @@ type Article = {
 
 async function getNews(): Promise<{ articles: Article[] }> {
   try {
-    const response = await fetch(`${process.env.APP_URL}/api/news`, { cache: 'no-store' });
+    const response = await fetch('/api/news', { cache: 'no-store' });
     if (!response.ok) {
       console.error("Failed to fetch news:", response.status, response.statusText);
       const errorBody = await response.text();
