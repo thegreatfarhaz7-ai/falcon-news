@@ -1,73 +1,66 @@
 import Image from 'next/image';
 import Link from 'next/link';
-import { articles } from '@/lib/placeholder-data';
-import { PlaceHolderImages } from '@/lib/placeholder-images';
 import { Badge } from '@/components/ui/badge';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
-import { ArrowRight } from 'lucide-react';
-import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from '@/components/ui/carousel';
+import { ArrowRight, ChevronRight, ChevronLeft } from 'lucide-react';
+import HeroSlider from '@/components/page/HeroSlider';
 
-export default function HomePage() {
-  const heroArticles = articles.slice(0, 4);
-  const breakingArticles = articles.slice(4, 8);
-  const latestArticles = articles.slice(8, 14);
-
-  const getArticleLink = (article: (typeof articles)[0]) => {
-    return article.category === 'Videos' ? `/videos/${article.slug}` : `/article/${article.slug}`;
+type Article = {
+  source: {
+    id: string | null;
+    name: string;
   };
+  author: string;
+  title: string;
+  description: string;
+  url: string;
+  urlToImage: string;
+  publishedAt: string;
+  content: string;
+};
+
+async function getNews(): Promise<{ articles: Article[] }> {
+  try {
+    const response = await fetch(`${process.env.APP_URL}/api/news`, { cache: 'no-store' });
+    if (!response.ok) {
+      console.error("Failed to fetch news:", response.status, response.statusText);
+      const errorBody = await response.text();
+      console.error("Error body:", errorBody);
+      return { articles: [] };
+    }
+    const data = await response.json();
+    // Filter out articles without images
+    const articlesWithImages = data.articles.filter((article: Article) => article.urlToImage);
+    return { articles: articlesWithImages };
+  } catch (error) {
+    console.error("Fetch error in getNews:", error);
+    return { articles: [] };
+  }
+}
+
+export default async function HomePage() {
+  const { articles } = await getNews();
+  
+  if (!articles || articles.length === 0) {
+    return (
+      <div className="container mx-auto px-4 py-8 text-center">
+        <h1 className="text-2xl font-bold">Could Not Load News</h1>
+        <p>Please try again later.</p>
+      </div>
+    );
+  }
+  
+  const heroArticles = articles.slice(0, 5);
+  const breakingArticles = articles.slice(5, 9);
+  const latestArticles = articles.slice(9, 15);
 
   return (
     <div className="container mx-auto px-4 py-8">
       <main className="grid grid-cols-1 gap-8 lg:grid-cols-3">
         {/* Hero Slider Section */}
         <div className="lg:col-span-2">
-          <Carousel
-            opts={{
-              loop: true,
-            }}
-            className="group relative"
-          >
-            <CarouselContent>
-              {heroArticles.map((article) => {
-                const articleImage = PlaceHolderImages.find(img => img.id === article.imageId);
-                return (
-                  <CarouselItem key={article.id}>
-                    <Card className="overflow-hidden border-none shadow-2xl">
-                      {articleImage && (
-                        <div className="relative h-64 w-full md:h-96">
-                          <Image
-                            src={articleImage.imageUrl}
-                            alt={article.title}
-                            fill
-                            className="object-cover"
-                            data-ai-hint={articleImage.imageHint}
-                          />
-                          <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent" />
-                        </div>
-                      )}
-                      <CardHeader className="relative -mt-24 border-t-4 border-primary bg-background/80 p-6 backdrop-blur-sm md:-mt-32">
-                        <Badge variant="destructive" className="absolute -top-4 left-6">
-                          <Link href={`/category/${article.category.toLowerCase()}`}>{article.category}</Link>
-                        </Badge>
-                        <CardTitle className="font-headline text-3xl md:text-5xl">
-                          <Link href={getArticleLink(article)} className="hover:underline">
-                            {article.title}
-                          </Link>
-                        </CardTitle>
-                        <p className="pt-2 text-muted-foreground line-clamp-2">{article.summary}</p>
-                        <p className="pt-4 text-sm text-muted-foreground">
-                          By <Link href={`/author/${encodeURIComponent(article.author)}`} className="hover:underline">{article.author}</Link> | {article.publishedDate}
-                        </p>
-                      </CardHeader>
-                    </Card>
-                  </CarouselItem>
-                );
-              })}
-            </CarouselContent>
-            <CarouselPrevious className="absolute left-4 top-1/2 -translate-y-1/2 z-10 opacity-0 group-hover:opacity-100 transition-opacity" />
-            <CarouselNext className="absolute right-4 top-1/2 -translate-y-1/2 z-10 opacity-0 group-hover:opacity-100 transition-opacity" />
-          </Carousel>
+          <HeroSlider articles={heroArticles} />
         </div>
 
         {/* Breaking News Sidebar */}
@@ -78,14 +71,14 @@ export default function HomePage() {
             </CardHeader>
             <CardContent className="space-y-4">
               {breakingArticles.map((article, index) => (
-                <div key={article.id} className={`space-y-2 ${index < breakingArticles.length - 1 ? 'border-b pb-4' : ''}`}>
+                <div key={article.title + index} className={`space-y-2 ${index < breakingArticles.length - 1 ? 'border-b pb-4' : ''}`}>
                   <h3 className="font-headline text-lg font-bold leading-tight">
-                    <Link href={getArticleLink(article)} className="hover:underline">
+                    <Link href={`/article/${encodeURIComponent(article.title)}`} className="hover:underline">
                       {article.title}
                     </Link>
                   </h3>
                   <p className="text-sm text-muted-foreground line-clamp-2">
-                    {article.summary}
+                    {article.description}
                   </p>
                 </div>
               ))}
@@ -105,33 +98,32 @@ export default function HomePage() {
           </Button>
         </div>
         <div className="mt-6 grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
-          {latestArticles.map(article => {
-            const articleImage = PlaceHolderImages.find(img => img.id === article.imageId);
+          {latestArticles.map((article, index) => {
             return (
-              <Card key={article.id} className="flex flex-col overflow-hidden transition-shadow hover:shadow-xl">
-                {articleImage && (
-                  <Link href={getArticleLink(article)} className="relative h-48 w-full block">
+              <Card key={article.title + index} className="flex flex-col overflow-hidden transition-shadow hover:shadow-xl">
+                {article.urlToImage && (
+                  <Link href={`/article/${encodeURIComponent(article.title)}`} className="relative h-48 w-full block">
                     <Image
-                      src={articleImage.imageUrl}
+                      src={article.urlToImage}
                       alt={article.title}
                       fill
                       className="object-cover"
-                      data-ai-hint={articleImage.imageHint}
+                      unoptimized
                     />
                   </Link>
                 )}
                 <CardHeader>
                     <Badge variant="secondary" className="mb-2 w-fit">
-                        <Link href={`/category/${article.category.toLowerCase()}`}>{article.category}</Link>
+                        <Link href={`/category/${article.source.name?.toLowerCase().replace(/ /g, '-') || 'general'}`}>{article.source.name}</Link>
                     </Badge>
                   <CardTitle className="font-headline text-xl">
-                    <Link href={getArticleLink(article)} className="hover:underline">
+                    <Link href={`/article/${encodeURIComponent(article.title)}`} className="hover:underline">
                       {article.title}
                     </Link>
                   </CardTitle>
                 </CardHeader>
                 <CardContent className="flex-grow">
-                  <p className="text-sm text-muted-foreground line-clamp-3">{article.summary}</p>
+                  <p className="text-sm text-muted-foreground line-clamp-3">{article.description}</p>
                 </CardContent>
               </Card>
             );
