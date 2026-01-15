@@ -24,7 +24,7 @@ type Article = {
   title: string;
   description: string;
   url: string;
-  urlToImage: string;
+  image: string;
   publishedAt: string;
   content: string;
 };
@@ -54,7 +54,7 @@ async function getNews(language = 'en', category?: string, pageSize = 20): Promi
             return [];
         }
         const data = await response.json();
-        return data.articles.filter((article: Article) => article.urlToImage && article.title && article.description);
+        return data.articles.filter((article: Article) => article.image && article.title && article.description);
     } catch (error) {
         console.error(`Fetch error in getNews for category: ${category}`, error);
         return [];
@@ -102,7 +102,7 @@ const CategorySection = async ({ language, category, title }: { language: string
                     <Card className="flex flex-col md:flex-row overflow-hidden transition-shadow hover:shadow-xl h-full">
                         <Link href={mainArticle.url} target="_blank" rel="noopener noreferrer" className="relative h-64 md:h-auto md:w-1/2 block flex-shrink-0">
                             <Image
-                                src={mainArticle.urlToImage}
+                                src={mainArticle.image}
                                 alt={mainArticle.title}
                                 fill
                                 className="object-cover"
@@ -130,7 +130,7 @@ const CategorySection = async ({ language, category, title }: { language: string
                          <div key={article.title + index} className="flex items-start gap-4">
                              <Link href={article.url} target="_blank" rel="noopener noreferrer" className="relative h-16 w-16 flex-shrink-0">
                                  <Image
-                                     src={article.urlToImage}
+                                     src={article.image}
                                      alt={article.title}
                                      fill
                                      className="rounded-md object-cover"
@@ -152,7 +152,7 @@ const CategorySection = async ({ language, category, title }: { language: string
                     <Card key={article.title + index} className="flex flex-col overflow-hidden transition-shadow hover:shadow-xl">
                         <Link href={article.url} target="_blank" rel="noopener noreferrer" className="relative h-40 w-full block">
                             <Image
-                                src={article.urlToImage}
+                                src={article.image}
                                 alt={article.title}
                                 fill
                                 className="object-cover"
@@ -232,7 +232,7 @@ export default async function HomePage() {
             <div className="lg:col-span-2">
                  <Link href={heroArticle.url} target="_blank" rel="noopener noreferrer" className="relative block h-[500px] w-full group">
                     <Image
-                        src={heroArticle.urlToImage}
+                        src={heroArticle.image}
                         alt={heroArticle.title}
                         fill
                         className="rounded-lg object-cover"
@@ -256,7 +256,7 @@ export default async function HomePage() {
                      <Card key={article.title + index} className="flex items-start gap-4 p-4 transition-shadow hover:shadow-md">
                          <Link href={article.url} target="_blank" rel="noopener noreferrer" className="relative h-20 w-20 flex-shrink-0">
                              <Image
-                                 src={article.urlToImage}
+                                 src={article.image}
                                  alt={article.title}
                                  fill
                                  className="rounded-md object-cover"
@@ -285,7 +285,7 @@ export default async function HomePage() {
                    <Card key={article.title + index} className="flex flex-col overflow-hidden transition-shadow hover:shadow-xl">
                      <Link href={article.url} target="_blank" rel="noopener noreferrer" className="relative h-48 w-full block">
                        <Image
-                         src={article.urlToImage}
+                         src={article.image}
                          alt={article.title}
                          fill
                          className="object-cover"
