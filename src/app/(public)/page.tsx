@@ -4,7 +4,7 @@ import Link from 'next/link';
 import { Badge } from '@/components/ui/badge';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
-import { ArrowRight } from 'lucide-react';
+import { ArrowRight, Rss } from 'lucide-react';
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -29,6 +29,15 @@ type Article = {
   content: string;
 };
 
+type RssItem = {
+    title: string;
+    link: string;
+    pubDate: string;
+    content: string;
+    guid: string;
+    isoDate: string;
+}
+
 async function getNews(language = 'en', category?: string, pageSize = 20): Promise<Article[]> {
     const baseUrl = process.env.NEXT_PUBLIC_APP_URL || 'http://localhost:9002';
     let url = `${baseUrl}/api/news?pageSize=${pageSize}&language=${language}`;
@@ -48,6 +57,24 @@ async function getNews(language = 'en', category?: string, pageSize = 20): Promi
         return data.articles.filter((article: Article) => article.urlToImage && article.title && article.description);
     } catch (error) {
         console.error(`Fetch error in getNews for category: ${category}`, error);
+        return [];
+    }
+}
+
+async function getRssFeed(feedKey: string): Promise<RssItem[]> {
+    const baseUrl = process.env.NEXT_PUBLIC_APP_URL || 'http://localhost:9002';
+    let url = `${baseUrl}/api/rss?feed=${feedKey}`;
+    
+    try {
+        const response = await fetch(url);
+        if (!response.ok) {
+            console.error(`Failed to fetch RSS feed for key: ${feedKey}`, response.status, response.statusText);
+            return [];
+        }
+        const data = await response.json();
+        return data.items;
+    } catch (error) {
+        console.error(`Fetch error in getRssFeed for key: ${feedKey}`, error);
         return [];
     }
 }
@@ -146,6 +173,40 @@ const CategorySection = async ({ language, category, title }: { language: string
         </section>
     );
 };
+
+const RssSection = async ({ feedKey, title }: { feedKey: string; title: string }) => {
+    const items = await getRssFeed(feedKey);
+    if (!items || items.length === 0) return null;
+
+    return (
+        <section className="mt-12">
+            <div className="flex items-center justify-between border-b-2 pb-2 mb-6">
+                <h2 className="font-headline text-3xl font-bold flex items-center gap-2">
+                    <Rss className="h-6 w-6 text-primary" />
+                    {title}
+                </h2>
+            </div>
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                {items.slice(0, 6).map((item, index) => (
+                    <Card key={item.guid + index} className="flex flex-col overflow-hidden transition-shadow hover:shadow-xl">
+                        <CardHeader className="flex-grow">
+                            <CardTitle className="font-headline text-lg">
+                                <Link href={item.link} target="_blank" rel="noopener noreferrer" className="hover:underline line-clamp-4">
+                                    {item.title}
+                                </Link>
+                            </CardTitle>
+                        </CardHeader>
+                        <CardContent>
+                            <p className="text-sm text-muted-foreground line-clamp-3">{item.content}</p>
+                            <p className="mt-4 text-xs text-muted-foreground">{new Date(item.isoDate).toLocaleDateString()}</p>
+                        </CardContent>
+                    </Card>
+                ))}
+            </div>
+        </section>
+    );
+};
+
 
 export default async function HomePage() {
   const lang = 'en';
@@ -250,6 +311,10 @@ export default async function HomePage() {
         {/* Category Sections */}
         <CategorySection language={lang} category="technology" title="Technology" />
         <CategorySection language={lang} category="business" title="Business" />
+
+        {/* RSS Feed Section */}
+        <RssSection feedKey="hindustan-times" title="Hindustan Times" />
+        
         <CategorySection language={lang} category="sports" title="Sports" />
 
     </div>
