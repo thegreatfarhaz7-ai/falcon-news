@@ -1,7 +1,13 @@
 import { NextRequest, NextResponse } from 'next/server';
 import Parser from 'rss-parser';
 
-const parser = new Parser();
+const parser = new Parser({
+    customFields: {
+        item: [
+            ['media:content', 'mediaContent', {keepArray: false}],
+        ]
+    }
+});
 
 // Whitelist of allowed RSS feeds to prevent SSRF
 const allowedFeeds: { [key: string]: string } = {
