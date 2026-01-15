@@ -14,6 +14,15 @@ const navItems = [
   { href: '/videos', label: 'Videos', icon: Video },
 ];
 
+const mobileNavLinks = [
+    { href: '/', label: 'Home' },
+    { href: '/articles', label: 'All Articles' },
+    { href: '/editorial', label: 'Editorial' },
+    { href: '/videos', label: 'Videos' },
+    { href: '/contact', label: 'Contact' },
+    ...CATEGORIES.map(cat => ({ href: `/category/${cat.toLowerCase().replace(' ', '-')}`, label: cat }))
+]
+
 export default function BottomNavBar() {
   const pathname = usePathname();
 
@@ -42,15 +51,15 @@ export default function BottomNavBar() {
                     <span className="text-xs">Menu</span>
                 </button>
             </SheetTrigger>
-            <SheetContent side="bottom" className="h-[80vh]">
+            <SheetContent side="bottom" className="h-[80vh] overflow-y-auto">
                 <SheetHeader className="p-4 text-left">
                 <SheetTitle><Logo /></SheetTitle>
                 </SheetHeader>
-                <div className="p-4 overflow-y-auto">
+                <div className="p-4">
                     <nav className="grid grid-cols-2 gap-4">
-                        {CATEGORIES.map(link => (
-                        <Link key={link} href={`/category/${link.toLowerCase().replace(' ','-')}`} className="text-lg font-medium hover:text-primary p-2 rounded-md hover:bg-accent">
-                            {link}
+                        {mobileNavLinks.map(link => (
+                        <Link key={link.href} href={link.href} className="text-lg font-medium hover:text-primary p-2 rounded-md hover:bg-accent">
+                            {link.label}
                         </Link>
                         ))}
                     </nav>

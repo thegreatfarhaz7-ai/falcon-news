@@ -15,6 +15,15 @@ const Header = () => {
   const pathname = usePathname();
   const searchParams = useSearchParams();
 
+  const mobileNavLinks = [
+    { href: '/', label: 'Home' },
+    { href: '/articles', label: 'All Articles' },
+    { href: '/editorial', label: 'Editorial' },
+    { href: '/videos', label: 'Videos' },
+    { href: '/contact', label: 'Contact' },
+    ...CATEGORIES.map(cat => ({ href: `/category/${cat.toLowerCase().replace(' ', '-')}`, label: cat }))
+  ]
+
   const handleLanguageChange = (lang: string) => {
     const current = new URLSearchParams(Array.from(searchParams.entries()));
     current.set('lang', lang);
@@ -35,15 +44,15 @@ const Header = () => {
                   <span className="sr-only">Toggle Menu</span>
                 </Button>
               </SheetTrigger>
-              <SheetContent side="left">
+              <SheetContent side="left" className="overflow-y-auto">
                   <SheetHeader className="p-4">
                     <SheetTitle><Logo /></SheetTitle>
                   </SheetHeader>
                   <div className="p-4">
                       <nav className="mt-8 flex flex-col gap-4">
-                          {CATEGORIES.map(link => (
-                          <Link key={link} href={`/category/${link.toLowerCase().replace(' ','-')}`} className="text-lg font-medium hover:text-primary">
-                              {link}
+                          {mobileNavLinks.map(link => (
+                          <Link key={link.href} href={link.href} className="text-lg font-medium hover:text-primary">
+                              {link.label}
                           </Link>
                           ))}
                       </nav>
