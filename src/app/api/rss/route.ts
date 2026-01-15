@@ -12,6 +12,7 @@ const parser = new Parser({
 // Whitelist of allowed RSS feeds to prevent SSRF
 const allowedFeeds: { [key: string]: string } = {
     'hindustan-times': 'https://www.hindustantimes.com/rss/top-news/rssfeed.xml',
+    'al-jazeera': 'https://www.aljazeera.com/xml/rss/all.xml',
 };
 
 export async function GET(request: NextRequest) {
