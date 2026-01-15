@@ -28,6 +28,14 @@ const nextConfig: NextConfig = {
         port: '',
         pathname: '/**',
       },
+      {
+        protocol: 'https',
+        hostname: '*.google.com',
+      },
+      {
+        protocol: 'https',
+        hostname: '*.media.azure.net',
+      }
     ],
   },
 };
