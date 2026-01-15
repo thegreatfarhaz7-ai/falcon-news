@@ -145,8 +145,8 @@ const CategorySection = async ({ language, category, title }: { language: string
     );
 };
 
-export default async function HomePage({ searchParams }: { searchParams: { lang?: string } }) {
-  const lang = searchParams?.lang || 'en';
+export default async function HomePage() {
+  const lang = 'en';
   const topHeadlines = await getNews(lang, 'general', 10);
 
   if (!topHeadlines || topHeadlines.length === 0) {

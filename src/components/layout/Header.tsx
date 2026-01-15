@@ -11,7 +11,6 @@ import {
   SheetTrigger,
 } from '@/components/ui/sheet';
 import { Menu, Search, UserCircle } from 'lucide-react';
-import LanguageSwitcher from '@/components/shared/LanguageSwitcher';
 
 const Header = () => {
   const navLinks = [
@@ -78,8 +77,6 @@ const Header = () => {
               <span className="sr-only">Search</span>
             </Link>
           </Button>
-
-          <LanguageSwitcher />
 
           <Button variant="ghost" size="icon" asChild>
             <Link href="/dashboard">
