@@ -2,26 +2,24 @@
 
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { Home, LayoutGrid, TrendingUp, Video } from 'lucide-react';
+import { Home, LayoutGrid, Newspaper, Video, MessageSquare } from 'lucide-react';
 import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger } from '@/components/ui/sheet';
 import Logo from '@/components/shared/Logo';
 import { cn } from '@/lib/utils';
 
 const navItems = [
   { href: '/', label: 'Home', icon: Home },
-  { href: '/#trending', label: 'Trending', icon: TrendingUp },
+  { href: '/articles', label: 'Articles', icon: Newspaper },
   { href: '/videos', label: 'Videos', icon: Video },
 ];
 
-const mobileNavLinks = [
+const allNavLinks = [
     { href: '/', label: 'Home' },
     { href: '/articles', label: 'All Articles' },
     { href: '/editorial', label: 'Editorial' },
     { href: '/videos', label: 'Videos' },
     { href: '/contact', label: 'Contact' },
-    { href: '/#technology', label: 'Technology' },
-    { href: '/#business', label: 'Business' },
-    { href: '/#sports', label: 'Sports' },
+    { href: '/search', label: 'Search' },
 ]
 
 export default function BottomNavBar() {
@@ -58,7 +56,7 @@ export default function BottomNavBar() {
                 </SheetHeader>
                 <div className="p-4">
                     <nav className="grid grid-cols-2 gap-4">
-                        {mobileNavLinks.map(link => (
+                        {allNavLinks.map(link => (
                         <Link key={link.href} href={link.href} className="text-lg font-medium hover:text-primary p-2 rounded-md hover:bg-accent">
                             {link.label}
                         </Link>

@@ -4,28 +4,21 @@ import Link from 'next/link';
 import Logo from '@/components/shared/Logo';
 import { Button } from '@/components/ui/button';
 import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger } from '@/components/ui/sheet';
-import { Menu, Search, Video, Globe } from 'lucide-react';
+import { Menu, Search, Globe } from 'lucide-react';
 import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from '@/components/ui/dropdown-menu';
 
 const Header = () => {
-  const navLinks = [
-    { name: 'Technology', href: '/#technology' },
-    { name: 'Business', href: '/#business' },
-    { name: 'Sports', href: '/#sports' },
+    const navLinks = [
+    { name: 'Home', href: '/' },
+    { name: 'All Articles', href: '/articles' },
+    { name: 'Editorial', href: '/editorial' },
+    { name: 'Videos', href: '/videos' },
+    { name: 'Contact', href: '/contact' },
   ];
   const router = useRouter();
   const pathname = usePathname();
   const searchParams = useSearchParams();
-
-  const mobileNavLinks = [
-    { href: '/', label: 'Home' },
-    { href: '/articles', label: 'All Articles' },
-    { href: '/editorial', label: 'Editorial' },
-    { href: '/videos', label: 'Videos' },
-    { href: '/contact', label: 'Contact' },
-    ...navLinks.map(cat => ({ href: cat.href, label: cat.name }))
-  ]
 
   const handleLanguageChange = (lang: string) => {
     const current = new URLSearchParams(Array.from(searchParams.entries()));
@@ -53,9 +46,9 @@ const Header = () => {
                   </SheetHeader>
                   <div className="p-4">
                       <nav className="mt-8 flex flex-col gap-4">
-                          {mobileNavLinks.map(link => (
+                          {navLinks.map(link => (
                           <Link key={link.href} href={link.href} className="text-lg font-medium hover:text-primary">
-                              {link.label}
+                              {link.name}
                           </Link>
                           ))}
                       </nav>
@@ -72,10 +65,6 @@ const Header = () => {
                 {link.name}
                 </Link>
             ))}
-             <Link href="/videos" className="text-sm font-medium uppercase tracking-wider text-muted-foreground transition-colors hover:text-primary flex items-center gap-1">
-                <Video className="h-4 w-4" />
-                Videos
-              </Link>
             </nav>
         </div>
 

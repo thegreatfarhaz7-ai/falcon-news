@@ -5,9 +5,9 @@ import { Button } from '@/components/ui/button';
 
 const Footer = () => {
   const footerSections = [
-    { name: 'Technology', href: '/#technology' },
-    { name: 'Business', href: '/#business' },
-    { name: 'Sports', href: '/#sports' },
+    { name: 'All Articles', href: '/articles' },
+    { name: 'Editorial', href: '/editorial' },
+    { name: 'Videos', href: '/videos' },
   ];
 
   return (
@@ -32,7 +32,6 @@ const Footer = () => {
           <div className="col-span-1">
             <h3 className="font-bold text-sm uppercase tracking-wider text-white">Sections</h3>
             <ul className="mt-4 space-y-3">
-              <li><Link href="/articles" className="text-sm text-gray-400 hover:text-white hover:underline">All Articles</Link></li>
               {footerSections.map(category => (
                 <li key={category.name}>
                   <Link href={category.href} className="text-sm text-gray-400 hover:text-white hover:underline">
