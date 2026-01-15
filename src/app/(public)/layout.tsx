@@ -1,13 +1,15 @@
 import type { ReactNode } from 'react';
 import Header from '@/components/layout/Header';
 import Footer from '@/components/layout/Footer';
+import BottomNavBar from '@/components/layout/BottomNavBar';
 
 export default function PublicLayout({ children }: { children: ReactNode }) {
   return (
     <div className="flex min-h-screen flex-col bg-[hsl(var(--background))]">
       <Header />
-      <main className="flex-1">{children}</main>
+      <main className="flex-1 pb-16 md:pb-0">{children}</main>
       <Footer />
+      <BottomNavBar />
     </div>
   );
 }
