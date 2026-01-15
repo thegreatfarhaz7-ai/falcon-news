@@ -13,6 +13,8 @@ import {
 } from '@/components/ui/dropdown-menu';
 import { Globe } from 'lucide-react';
 
+export const dynamic = 'force-dynamic';
+
 type Article = {
   source: {
     id: string | null;
