@@ -7,7 +7,6 @@ import {
   SidebarMenuItem,
   SidebarMenuButton,
   SidebarTrigger,
-  useSidebar,
 } from '@/components/ui/sidebar';
 import Logo from '@/components/shared/Logo';
 import { LayoutDashboard, Newspaper, Sparkles, Users, Settings } from 'lucide-react';
@@ -16,7 +15,6 @@ import Link from 'next/link';
 
 export default function DashboardSidebar() {
   const pathname = usePathname();
-  const { state } = useSidebar();
 
   const menuItems = [
     { href: '/dashboard', label: 'Dashboard', icon: LayoutDashboard },
@@ -40,7 +38,7 @@ export default function DashboardSidebar() {
             <SidebarMenuItem key={item.href}>
               <SidebarMenuButton
                 asChild
-                isActive={pathname === item.href}
+                isActive={pathname.startsWith(item.href) && (item.href === '/dashboard' ? pathname === item.href : true)}
                 tooltip={{ children: item.label }}
               >
                 <Link href={item.href}>
