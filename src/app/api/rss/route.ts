@@ -25,7 +25,22 @@ export async function GET(request: NextRequest) {
     const feedUrl = allowedFeeds[feedKey];
 
     try {
-        const feed = await parser.parseURL(feedUrl);
+        const response = await fetch(feedUrl, {
+            headers: {
+                'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36',
+                'Accept': 'application/rss+xml, application/xml, text/xml',
+            }
+        });
+
+        if (!response.ok) {
+            console.error(`Failed to fetch RSS feed from ${feedUrl}:`, response.status, response.statusText);
+            const errorText = await response.text();
+            console.error('Error body:', errorText);
+            return NextResponse.json({ error: 'Failed to fetch RSS feed.', details: `Status ${response.status}` }, { status: 500 });
+        }
+        
+        const feed = await parser.parseString(await response.text());
+
         return NextResponse.json(feed);
     } catch (error) {
         console.error(`Failed to fetch or parse RSS feed from ${feedUrl}:`, error);
