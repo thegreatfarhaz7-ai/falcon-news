@@ -7,6 +7,7 @@ import { CATEGORIES } from '@/lib/constants';
 import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger } from '@/components/ui/sheet';
 import { Menu, Search, Video, Globe } from 'lucide-react';
 import { usePathname, useRouter, useSearchParams } from 'next/navigation';
+import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from '@/components/ui/dropdown-menu';
 
 const Header = () => {
   const navLinks = CATEGORIES.slice(0, 6);
@@ -96,49 +97,5 @@ const Header = () => {
     </header>
   );
 };
-
-function DropdownMenu(props: { children: React.ReactNode }) {
-    const [open, setOpen] = React.useState(false);
-    return (
-        <div className="relative">
-            {React.Children.map(props.children, (child) => {
-                if (React.isValidElement(child) && child.type === DropdownMenuTrigger) {
-                    return React.cloneElement(child, { onClick: () => setOpen(!open) } as any);
-                }
-                if (React.isValidElement(child) && child.type === DropdownMenuContent) {
-                    return open ? child : null;
-                }
-                return child;
-            })}
-        </div>
-    );
-}
-
-function DropdownMenuTrigger(props: { asChild?: boolean, children: React.ReactNode, onClick?: () => void }) {
-    const { asChild, children, ...rest } = props;
-    if (asChild) {
-        return React.cloneElement(children as React.ReactElement, rest);
-    }
-    return <button {...rest}>{children}</button>;
-}
-
-function DropdownMenuContent(props: { align?: 'end' | 'start', children: React.ReactNode }) {
-    const alignClass = props.align === 'end' ? 'right-0' : 'left-0';
-    return (
-        <div className={`absolute z-50 mt-2 min-w-[8rem] overflow-hidden rounded-md border bg-popover p-1 text-popover-foreground shadow-md ${alignClass}`}>
-            {React.Children.map(props.children, (child) => {
-                 if (React.isValidElement(child) && child.type === DropdownMenuItem) {
-                    return React.cloneElement(child, {  } as any);
-                }
-                return child;
-            })}
-        </div>
-    );
-}
-
-function DropdownMenuItem(props: { onSelect?: () => void, children: React.ReactNode }) {
-    return <div onClick={props.onSelect} className="relative flex cursor-default select-none items-center rounded-sm px-2 py-1.5 text-sm outline-none transition-colors focus:bg-accent focus:text-accent-foreground data-[disabled]:pointer-events-none data-[disabled]:opacity-50">{props.children}</div>
-}
-
 
 export default Header;
