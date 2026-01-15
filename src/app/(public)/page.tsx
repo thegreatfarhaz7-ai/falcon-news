@@ -313,7 +313,7 @@ export default async function HomePage() {
         <CategorySection language={lang} category="business" title="Business" />
 
         {/* RSS Feed Section */}
-        <RssSection feedKey="hindustan-times" title="Hindustan Times" />
+        <RssSection feedKey="ndtv" title="NDTV" />
         <RssSection feedKey="al-jazeera" title="Al Jazeera" />
         
         <CategorySection language={lang} category="sports" title="Sports" />

@@ -11,7 +11,7 @@ const parser = new Parser({
 
 // Whitelist of allowed RSS feeds to prevent SSRF
 const allowedFeeds: { [key: string]: string } = {
-    'hindustan-times': 'https://www.hindustantimes.com/rss/top-news/rssfeed.xml',
+    'ndtv': 'https://feeds.feedburner.com/ndtvnews-top-stories',
     'al-jazeera': 'https://www.aljazeera.com/xml/rss/all.xml',
 };
 
