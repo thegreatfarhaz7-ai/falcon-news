@@ -35,7 +35,7 @@ async function getNews(language = 'en', category?: string, pageSize = 20): Promi
     }
 
     try {
-        const response = await fetch(url, { cache: 'no-store' });
+        const response = await fetch(url);
         if (!response.ok) {
             console.error(`Failed to fetch news for category: ${category}`, response.status, response.statusText);
             const errorBody = await response.text();
