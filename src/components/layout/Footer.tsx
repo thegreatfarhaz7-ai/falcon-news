@@ -29,6 +29,7 @@ const Footer = () => {
           <div className="col-span-1">
             <h3 className="font-bold text-sm uppercase tracking-wider text-white">Sections</h3>
             <ul className="mt-4 space-y-3">
+              <li><Link href="/articles" className="text-sm text-gray-400 hover:text-white hover:underline">All Articles</Link></li>
               {footerSections.map(category => (
                 <li key={category}>
                   <Link href={`/category/${category.toLowerCase().replace(' ','-')}`} className="text-sm text-gray-400 hover:text-white hover:underline">
@@ -44,7 +45,7 @@ const Footer = () => {
             <ul className="mt-4 space-y-3">
               <li><Link href="/about" className="text-sm text-gray-400 hover:text-white hover:underline">Our Mission</Link></li>
               <li><Link href="#" className="text-sm text-gray-400 hover:text-white hover:underline">Ethics Policy</Link></li>
-              <li><Link href="#" className="text-sm text-gray-400 hover:text-white hover:underline">Careers</Link></li>
+              <li><Link href="/contact" className="text-sm text-gray-400 hover:text-white hover:underline">Contact Us</Link></li>
               <li><Link href="/dashboard" className="text-sm text-gray-400 hover:text-white hover:underline">Dashboard</Link></li>
             </ul>
           </div>
