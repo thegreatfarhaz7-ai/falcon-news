@@ -5,9 +5,9 @@ import BottomNavBar from '@/components/layout/BottomNavBar';
 
 export default function PublicLayout({ children }: { children: ReactNode }) {
   return (
-    <div className="flex min-h-screen flex-col bg-[hsl(var(--background))]">
+    <div className="flex min-h-screen flex-col bg-background">
       <Header />
-      <main className="flex-1 pb-16 md:pb-0">{children}</main>
+      <main className="flex-1 pb-16 pt-16 md:pt-0 md:pb-0">{children}</main>
       <Footer />
       <BottomNavBar />
     </div>

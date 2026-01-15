@@ -3,13 +3,24 @@ import * as React from 'react';
 import Link from 'next/link';
 import Logo from '@/components/shared/Logo';
 import { Button } from '@/components/ui/button';
-import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger } from '@/components/ui/sheet';
-import { Menu, Search, Globe } from 'lucide-react';
+import {
+  Sheet,
+  SheetContent,
+  SheetHeader,
+  SheetTitle,
+  SheetTrigger,
+} from '@/components/ui/sheet';
+import { Menu, Search, Globe, ChevronDown, UserCircle } from 'lucide-react';
 import { usePathname, useRouter, useSearchParams } from 'next/navigation';
-import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from '@/components/ui/dropdown-menu';
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from '@/components/ui/dropdown-menu';
 
 const Header = () => {
-    const navLinks = [
+  const navLinks = [
     { name: 'Home', href: '/' },
     { name: 'All Articles', href: '/articles' },
     { name: 'Editorial', href: '/editorial' },
@@ -19,6 +30,7 @@ const Header = () => {
   const router = useRouter();
   const pathname = usePathname();
   const searchParams = useSearchParams();
+  const lang = searchParams.get('lang') || 'en';
 
   const handleLanguageChange = (lang: string) => {
     const current = new URLSearchParams(Array.from(searchParams.entries()));
@@ -28,44 +40,53 @@ const Header = () => {
     router.push(`${pathname}${query}`);
   };
 
-
   return (
-    <header className="sticky top-0 z-50 border-b bg-background">
+    <header className="fixed top-0 z-50 w-full border-b bg-background">
       <div className="container mx-auto flex h-16 items-center justify-between px-4">
         <div className="flex items-center gap-2 lg:flex-1">
-            <Sheet>
-              <SheetTrigger asChild>
-                <Button variant="ghost" size="icon" className="lg:hidden">
-                  <Menu className="h-6 w-6" />
-                  <span className="sr-only">Toggle Menu</span>
-                </Button>
-              </SheetTrigger>
-              <SheetContent side="left" className="overflow-y-auto">
-                  <SheetHeader className="p-4">
-                    <SheetTitle><Logo /></SheetTitle>
-                  </SheetHeader>
-                  <div className="p-4">
-                      <nav className="mt-8 flex flex-col gap-4">
-                          {navLinks.map(link => (
-                          <Link key={link.href} href={link.href} className="text-lg font-medium hover:text-primary">
-                              {link.name}
-                          </Link>
-                          ))}
-                      </nav>
-                  </div>
-              </SheetContent>
-            </Sheet>
-            <Logo className="text-2xl font-bold font-logo tracking-normal" />
+          <Sheet>
+            <SheetTrigger asChild>
+              <Button variant="ghost" size="icon" className="lg:hidden">
+                <Menu className="h-6 w-6" />
+                <span className="sr-only">Toggle Menu</span>
+              </Button>
+            </SheetTrigger>
+            <SheetContent side="left" className="overflow-y-auto">
+              <SheetHeader className="p-4">
+                <SheetTitle>
+                  <Logo />
+                </SheetTitle>
+              </SheetHeader>
+              <div className="p-4">
+                <nav className="mt-8 flex flex-col gap-4">
+                  {navLinks.map((link) => (
+                    <Link
+                      key={link.href}
+                      href={link.href}
+                      className="text-lg font-medium hover:text-primary"
+                    >
+                      {link.name}
+                    </Link>
+                  ))}
+                </nav>
+              </div>
+            </SheetContent>
+          </Sheet>
+          <Logo className="text-2xl font-bold font-logo tracking-normal" />
         </div>
-        
+
         <div className="hidden flex-1 justify-center lg:flex">
-            <nav className="flex items-center gap-6">
-            {navLinks.map(link => (
-                <Link key={link.name} href={link.href} className="text-sm font-medium uppercase tracking-wider text-muted-foreground transition-colors hover:text-primary">
+          <nav className="flex items-center gap-6">
+            {navLinks.map((link) => (
+              <Link
+                key={link.name}
+                href={link.href}
+                className="text-sm font-medium uppercase tracking-wider text-muted-foreground transition-colors hover:text-primary"
+              >
                 {link.name}
-                </Link>
+              </Link>
             ))}
-            </nav>
+          </nav>
         </div>
 
         <div className="flex flex-1 items-center justify-end gap-2">
@@ -78,9 +99,9 @@ const Header = () => {
 
           <DropdownMenu>
             <DropdownMenuTrigger asChild>
-              <Button variant="ghost" size="icon">
-                <Globe className="h-5 w-5" />
-                <span className="sr-only">Change language</span>
+              <Button variant="ghost" className="gap-1">
+                {lang === 'hi' ? 'हिंदी' : 'English'}
+                <ChevronDown className="h-4 w-4" />
               </Button>
             </DropdownMenuTrigger>
             <DropdownMenuContent align="end">
@@ -93,6 +114,12 @@ const Header = () => {
             </DropdownMenuContent>
           </DropdownMenu>
 
+          <Button variant="ghost" size="icon" asChild>
+            <Link href="/dashboard">
+              <UserCircle className="h-6 w-6" />
+              <span className="sr-only">Profile</span>
+            </Link>
+          </Button>
         </div>
       </div>
     </header>
